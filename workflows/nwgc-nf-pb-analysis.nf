@@ -6,7 +6,7 @@ include { SAMTOOLS_STATS } from './modules/samtools_stats.nf'
 include { PICARD_QUALITY_METRICS } from './modules/picard_quality_metrics.nf'
 include { PICARD_COVERAGE_METRICS } from './modules/picard_coverage_metrics.nf'
 
-workflow {
+workflow PB_ANALYSIS {
 
     // Map the ccsBams
     def ccsBams = Channel.fromPath(params.ccsBams)

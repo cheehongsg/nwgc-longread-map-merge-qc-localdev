@@ -14,7 +14,7 @@
         github {
             platform = 'github'
             server = 'https://github.com'
-            endpoint = 'https://github.com'
+            endpoint = 'https://api.github.com'
         }
             
     }
