@@ -9,13 +9,12 @@
 
 
 ## SCM file for connecting to private github repo
-providers {  
-  
-    github {  
-        platform = 'github'  
-        server = 'https://github.com'  
-        endpoint = 'https://github.com'  
-    }  
-  
-}  
-
+    providers {
+    
+        github {
+            platform = 'github'
+            server = 'https://github.com'
+            endpoint = 'https://github.com'
+        }
+            
+    }
