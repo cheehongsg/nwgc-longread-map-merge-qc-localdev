@@ -4,7 +4,7 @@ process ADD_NM_TAGS {
  
     debug true
     module "$params.initModules"
-    module "params.samtoolsModule"
+    module "$params.samtoolsModule"
     memory "$params.addNMTags.memory"
     clusterOptions "$params.defaultClusterOptions -pe serial $params.addNMTags.numCPUs -l d_rt=1:0:0"
 
