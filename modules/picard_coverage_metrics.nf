@@ -1,4 +1,4 @@
-process PICARD_QUALITY_METRICS {
+process PICARD_COVERAGE_METRICS {
 
     publishDir $params.sampleQCDirectory
  
