@@ -1,5 +1,7 @@
 process MERGE_MAPPED_BAMS {
 
+    label "${params.userId}_MERGE_MAPPED_BAMS_${params.sampleId}"
+
     debug true
     module "$params.initModules"
     module "$params.samtoolsModule"
