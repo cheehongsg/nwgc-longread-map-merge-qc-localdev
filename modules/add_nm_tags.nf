@@ -22,6 +22,7 @@ process ADD_NM_TAGS {
             -b \
             --threads $params.addNMTags.numCPUs \
             $bam \
+            $params.referenceGenome \
             > ${params.sampleId}.merged.sorted.nmtagged.bam \
         
         samtools \
