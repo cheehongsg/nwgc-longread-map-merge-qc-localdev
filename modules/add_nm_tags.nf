@@ -13,7 +13,7 @@ process ADD_NM_TAGS {
 
     output:
         path "*.nmtagged.bam",  emit: nmtagged_bam
-        path "*.nmtagged.bai",  emit: index
+        path "*.nmtagged.bam.bai",  emit: index
 
     script:
         """
