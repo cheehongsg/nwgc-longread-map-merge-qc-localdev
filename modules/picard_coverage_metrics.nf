@@ -1,11 +1,11 @@
 process PICARD_COVERAGE_METRICS {
 
-    publishDir $params.sampleQCDirectory
+    publishDir "$params.sampleQCDirectory"
  
     debug true
-    module $params.initModules
-    module $params.picardModule
-    memory $params.picardCoverageMetrics.memory
+    module "$params.initModules"
+    module "$params.picardModule"
+    memory "$params.picardCoverageMetrics.memory"
     clusterOptions "$params.defaultClusterOptions -l d_rt=1:0:0"
 
     input:
