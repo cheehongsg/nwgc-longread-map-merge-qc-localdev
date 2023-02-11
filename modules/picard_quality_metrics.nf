@@ -12,7 +12,7 @@ process PICARD_QUALITY_METRICS {
         path bam
 
     output:
-        path "*.picard.quality.*"
+        path "*.picard.quality.txt"
 
     script:
         """
@@ -22,7 +22,7 @@ process PICARD_QUALITY_METRICS {
             -jar \$PICARD_DIR/picard.jar CollectQualityYieldMetrics \
             --INPUT $bam \
             --VALIDATION_STRINGENCY LENIENT \
-            --OUTPUT ${params.sampleId}.picard.quality
+            --OUTPUT ${params.sampleId}.picard.quality.txt
         """
 
 }
