@@ -20,7 +20,7 @@ process ADD_NM_TAGS {
         samtools \
             calmd \
             -b \
-            --threads $params.addNMTages.numCPUs \
+            --threads $params.addNMTags.numCPUs \
             $bam \
             > ${params.sampleId}.merged.sorted.nmtagged.bam \
         
