@@ -1,5 +1,7 @@
 process MAP_CCS_BAMS {
 
+    label "${params.userId}_${params.sampleId}_map_ccs_bams"
+
     debug true
     module "$params.initModules"
     module "$params.smrttoolsModule"

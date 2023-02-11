@@ -18,3 +18,19 @@
         }
             
     }
+    
+    
+## NOT for this file in the long run...but we may need to use this for memory
+    process my_process {
+    cpus 2
+
+    memory { 16.GB * task.attempt }
+    clusterOptions "-l h_vmem=${task.memory.toMega()/cpus}M " + clusterOptions
+
+
+    errorStrategy { task.exitStatus == 140 ? 'retry' : 'terminate' }
+    maxRetries 3
+    maxErrors -1
+
+    ...
+}
