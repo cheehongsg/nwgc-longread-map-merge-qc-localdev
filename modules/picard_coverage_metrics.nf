@@ -12,7 +12,7 @@ process PICARD_COVERAGE_METRICS {
         path bam
 
     output:
-        path "*.picard.coverage.*"
+        path "*.picard.coverage.txt"
 
     script:
         """
@@ -26,7 +26,7 @@ process PICARD_COVERAGE_METRICS {
             --INCLUDE_BQ_HISTOGRAM \
             --REFERENCE_SEQUENCE $params.referenceGenome \
             --VALIDATION_STRINGENCY LENIENT \
-            --OUTPUT ${params.sampleId}.picard.coverage
+            --OUTPUT ${params.sampleId}.picard.coverage.txt
         """
 
 }
