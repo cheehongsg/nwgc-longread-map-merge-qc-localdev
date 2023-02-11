@@ -20,7 +20,7 @@ process PICARD_QUALITY_METRICS {
 
         java -jar -xmx${params.picardQualityMetrics.memory} \
             \$PICARD_DIR/picard.jar CollectQualityYieldMetrics \
-            --INPUT $BAM \
+            --INPUT $bam \
             --VALIDATION_STRINGENCY LENIENT \
             --OUTPUT ${params.sampleId}.picard.quality
         """

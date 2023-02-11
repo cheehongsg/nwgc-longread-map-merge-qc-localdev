@@ -20,7 +20,7 @@ process PICARD_COVERAGE_METRICS {
 
         java -jar -xmx${params.picardCoverageMetrics.memory} \
             \$PICARD_DIR/picard.jar CollectRawWgsMetrics \
-            --INPUT $BAM \
+            --INPUT $bam \
             --COUNT_UNPAIRED true \
             --READ_LENGTH 17000 \
             --INCLUDE_BQ_HISTOGRAM \
