@@ -1,6 +1,6 @@
 process MERGE_MAPPED_BAMS {
 
-    label "${params.userId}_MERGE_MAPPED_BAMS_${params.sampleId}"
+    label "${params.sampleId}_MERGE_MAPPED_BAMS_${params.userId}"
 
     debug true
     module "$params.initModules"
@@ -25,6 +25,12 @@ process MERGE_MAPPED_BAMS {
             sort \
             - \
             -o ${params.sampleId}.merged.sorted.bam
+
+        cat <<-END_VERSIONS > versions.yml
+        "${task.process}":
+            samtools: \$(samtools --version | grep ^samtools | awk '{print \$2}')
+        END_VERSIONS
+
         """
 
 }

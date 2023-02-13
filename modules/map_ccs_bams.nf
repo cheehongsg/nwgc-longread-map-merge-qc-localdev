@@ -1,6 +1,6 @@
 process MAP_CCS_BAMS {
 
-    label "${params.userId}_MAP_CCS_BAMS_${params.sampleId}"
+    label "${params.sampleId}_MAP_CCS_BAMS_${params.userId}"
 
     debug true
     module "$params.initModules"
@@ -23,6 +23,11 @@ process MAP_CCS_BAMS {
             $params.referenceGenome \\
             $ccsBam \\
             ${ccsBam}.mapped.bam
+
+        cat <<-END_VERSIONS > versions.yml
+        "${task.process}":
+            pbmm2: \$(pbmm2 --version | awk '{print$2}'')
+        END_VERSIONS
         """
 
 }

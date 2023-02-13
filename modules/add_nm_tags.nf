@@ -1,6 +1,6 @@
 process ADD_NM_TAGS {
 
-    label "${params.userId}_ADD_NM_TAGS_${params.sampleId}"
+    label "${params.sampleId}_ADD_NM_TAGS_${params.userId}"
 
     publishDir "$params.sampleDirectory", mode:  'link'
  
@@ -30,6 +30,12 @@ process ADD_NM_TAGS {
         samtools \
             index \
             ${params.sampleId}.merged.sorted.nmtagged.bam
+
+        cat <<-END_VERSIONS > versions.yml
+        "${task.process}":
+            samtools: \$(samtools --version | grep ^samtools | awk '{print \$2}')
+        END_VERSIONS
+
         """
 
 }

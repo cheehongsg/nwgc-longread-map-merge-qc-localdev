@@ -5,6 +5,8 @@ include { ADD_NM_TAGS } from '../modules/add_nm_tags.nf'
 include { SAMTOOLS_STATS } from '../modules/samtools_stats.nf'
 include { PICARD_QUALITY_METRICS } from '../modules/picard_quality_metrics.nf'
 include { PICARD_COVERAGE_METRICS } from '../modules/picard_coverage_metrics.nf'
+include { NANO_PLOT } from '../modules/nano_plot.nf'
+include { CONTAMINATION_CHECK } from '../modules/contaminatino_check.nf'
 
 workflow PB_ANALYSIS {
 
@@ -20,4 +22,6 @@ workflow PB_ANALYSIS {
     SAMTOOLS_STATS(ADD_NM_TAGS.out.nmtagged_bam)
     PICARD_QUALITY_METRICS(ADD_NM_TAGS.out.nmtagged_bam)
     PICARD_COVERAGE_METRICS(ADD_NM_TAGS.out.nmtagged_bam)
+    NANO_PLOT(ADD_NM_TAGS.out.nmtagged_bam)
+    CONTAMINATION_CHECK(ADD_NM_TAGS.out.nmtagged_bam)
 }

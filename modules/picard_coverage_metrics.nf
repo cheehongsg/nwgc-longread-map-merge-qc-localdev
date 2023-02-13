@@ -1,6 +1,6 @@
 process PICARD_COVERAGE_METRICS {
 
-    label "${params.userId}_PICARD_COVERAGE_METRICS_${params.sampleId}"
+    label "${params.sampleId}_PICARD_COVERAGE_METRICS_${params.userId}"
 
     publishDir "$params.sampleQCDirectory", mode: 'link'
  
@@ -29,6 +29,13 @@ process PICARD_COVERAGE_METRICS {
             --REFERENCE_SEQUENCE $params.referenceGenome \
             --VALIDATION_STRINGENCY LENIENT \
             --OUTPUT ${params.sampleId}.picard.coverage.txt
+
+        cat <<-END_VERSIONS > versions.yml
+        "${task.process}":
+            java: \$(java -version 2>&1 | grep version | awk '{print \$3}' | tr -d '"'')
+            picard: \$(java -jar \$PICARD_DIR/picard.jar CollectRawWgsMetrics --version 2>&1 | awk '{split(\$0,a,":"); print a[2]}')
+        END_VERSIONS
+
         """
 
 }
