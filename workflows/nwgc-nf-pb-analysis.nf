@@ -6,7 +6,7 @@ include { SAMTOOLS_STATS } from '../modules/samtools_stats.nf'
 include { PICARD_QUALITY_METRICS } from '../modules/picard_quality_metrics.nf'
 include { PICARD_COVERAGE_METRICS } from '../modules/picard_coverage_metrics.nf'
 include { NANO_PLOT } from '../modules/nano_plot.nf'
-include { CONTAMINATION_CHECK } from '../modules/contaminatino_check.nf'
+include { CONTAMINATION_CHECK } from '../modules/contamination_check.nf'
 
 workflow PB_ANALYSIS {
 
