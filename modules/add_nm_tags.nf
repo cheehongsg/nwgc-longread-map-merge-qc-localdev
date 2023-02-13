@@ -1,6 +1,6 @@
 process ADD_NM_TAGS {
 
-    label "${params.sampleId}_ADD_NM_TAGS_${params.userId}"
+    label "ADD_NM_TAGS_${params.sampleId}_${params.userId}"
 
     publishDir "$params.sampleDirectory", mode:  'link'
  

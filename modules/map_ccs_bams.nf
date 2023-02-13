@@ -1,6 +1,6 @@
 process MAP_CCS_BAMS {
 
-    label "${params.sampleId}_MAP_CCS_BAMS_${params.userId}"
+    label "MAP_CCS_BAMS_${params.sampleId}_${params.userId}"
 
     debug true
     module "$params.initModules"

@@ -1,6 +1,6 @@
 process MERGE_MAPPED_BAMS {
 
-    label "${params.sampleId}_MERGE_MAPPED_BAMS_${params.userId}"
+    label "MERGE_MAPPED_BAMS_${params.sampleId}_${params.userId}"
 
     debug true
     module "$params.initModules"

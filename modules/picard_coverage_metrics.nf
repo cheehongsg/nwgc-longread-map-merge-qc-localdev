@@ -1,6 +1,6 @@
 process PICARD_COVERAGE_METRICS {
 
-    label "${params.sampleId}_PICARD_COVERAGE_METRICS_${params.userId}"
+    label "PICARD_COVERAGE_METRICS_${params.sampleId}_${params.userId}"
 
     publishDir "$params.sampleQCDirectory", mode: 'link'
  

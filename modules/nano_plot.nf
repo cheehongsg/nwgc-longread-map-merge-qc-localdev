@@ -1,6 +1,6 @@
 process NANO_PLOT {
 
-    label "${params.sampleId}_NANO_PLOT_${params.userId}"
+    label "NANO_PLOT_${params.sampleId}_${params.userId}"
 
     publishDir "$params.sampleQCDirectory", mode: 'link'
  

@@ -1,6 +1,6 @@
 process CONTAMINATION_CHECK {
 
-    label "${params.sampleId}_CONTAMINATION_CHECK_${params.userId}"
+    label "CONTAMINATION_CHECK_${params.sampleId}_${params.userId}"
 
     publishDir "$params.sampleQCDirectory", mode: 'link'
  

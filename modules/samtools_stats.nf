@@ -1,6 +1,6 @@
 process SAMTOOLS_STATS {
 
-    label "${params.sampleId}_SAMTOOLS_STATS_${params.userId}"
+    label "SAMTOOLS_STATS_${params.sampleId}_${params.userId}"
 
     publishDir "$params.sampleQCDirectory", mode: 'link'
  
