@@ -15,7 +15,7 @@ process PICARD_QUALITY_METRICS {
 
     output:
         path "*.picard.quality.txt"
-        path "versions.yaml"   emit:  versions
+        path "versions.yaml",  emit: versions
 
     script:
         """
