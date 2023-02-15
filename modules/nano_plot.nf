@@ -27,7 +27,7 @@ process NANO_PLOT {
             --bam $bam
 
         cat <<-END_VERSIONS > versions.yaml
-        "${task.process}":
+        ${task.process}:
             python: \$(python --version | awk '{print \$2}')
             NanoPlot: \$(NanoPlot --version | awk '{print \$2}')
         END_VERSIONS

@@ -27,7 +27,7 @@ process SAMTOOLS_STATS {
             > ${params.sampleId}.samtools.stats.txt \
 
         cat <<-END_VERSIONS > versions.yaml
-        "${task.process}":
+        ${task.process}:
             samtools: \$(samtools --version | grep ^samtools | awk '{print \$2}')
         END_VERSIONS
 
