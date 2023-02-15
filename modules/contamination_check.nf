@@ -43,7 +43,8 @@ process CONTAMINATION_CHECK {
             --BedPath \$BEDPATH \
             --MeanPath \$MEANPATH \
             --Reference $params.referenceGenome \
-            --verbose \
+            --Verbose \
+            $params.verifyBamId.additionalParameters \
             --Output ${params.sampleId}.VerifyBamId
 
         cat <<-END_VERSIONS > versions.yaml

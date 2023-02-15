@@ -3,10 +3,14 @@ userId : "<first 4 letters of samplify userId>"
 userEmail : "<userEmail>"
 
 # Sample
-sampleDirectory : "<full path to sample directory"
-sampleQCDirectory : "<full path to sample QC directory"
+sampleDirectory : "<full path to sample directory>"
+sampleQCDirectory : "<full path to sample QC directory>"
 sampleId : <samplify sampleId>
 
 # CCS Bams
 ccsBams : [ <comma delmited list of full paths to ccs bams> ]
 # e.g. ccsBams : ["/net/grc/vol6/home/kolart/nextflow_pb_test/ccs1-2_downsampled.bam","/net/grc/vol6/home/kolart/nextflow_pb_test/ccs2-2_downsampled.bam"]
+
+# VerifyBamID
+verifyBamId.additionalParameters : []
+# e.g. verifyBamId.additionalParameters : ["--DisableSanityCheck"] is needed for testing
