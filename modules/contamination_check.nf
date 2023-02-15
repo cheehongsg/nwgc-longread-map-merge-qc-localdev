@@ -45,7 +45,7 @@ process CONTAMINATION_CHECK {
             --Reference $params.referenceGenome \
             --Verbose \
             $params.verifyBamId_additionalParameters \
-            --Output ${params.sampleId}.VerifyBamId
+            --Output ${params.sampleId}.VerifyBamID
 
         cat <<-END_VERSIONS > versions.yaml
         ${task.process}:
