@@ -12,5 +12,5 @@ ccsBams : [ <comma delmited list of full paths to ccs bams> ]
 # e.g. ccsBams : ["/net/grc/vol6/home/kolart/nextflow_pb_test/ccs1-2_downsampled.bam","/net/grc/vol6/home/kolart/nextflow_pb_test/ccs2-2_downsampled.bam"]
 
 # VerifyBamID
-verifyBamId.additionalParameters : []
+verifyBamId_additionalParameters : []
 # e.g. verifyBamId.additionalParameters : ["--DisableSanityCheck"] is needed for testing
