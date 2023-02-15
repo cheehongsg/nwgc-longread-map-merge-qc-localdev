@@ -2,7 +2,7 @@ process NANO_PLOT {
 
     label "NANO_PLOT_${params.sampleId}_${params.userId}"
 
-    publishDir "$params.sampleQCDirectory", mode: 'link'
+    publishDir "${params.sampleQCDirectory}/nanoPlot", mode: 'link'
  
     debug true
     module "$params.initModules"
@@ -15,12 +15,14 @@ process NANO_PLOT {
         path bam
 
     output:
-        path "*.stats.txt"
+        path "*.html", emit: html
+        path "*.png", emit: png
+        path "NanoStats.txt", emit: stats
         path "versions.yaml", emit: versions
 
     script:
         """
-        mkdir -p $params.sampleQCDirectory
+        mkdir -p ${params.sampleQCDirectory}/nanoPlot
 
         NanoPlot \
             -t $params.nanoPlot.numCPUs \
