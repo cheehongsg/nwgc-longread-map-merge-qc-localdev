@@ -33,7 +33,7 @@ process PICARD_COVERAGE_METRICS {
 
         cat <<-END_VERSIONS > versions.yaml
         "${task.process}":
-            java: \$(java -version 2>&1 | grep version | awk '{print \$3}' | tr -d '"'')
+            java: \$(java -version 2>&1 | grep version | awk '{print \$3}' | tr -d '"''')
             picard: \$(java -jar \$PICARD_DIR/picard.jar CollectRawWgsMetrics --version 2>&1 | awk '{split(\$0,a,":"); print a[2]}')
         END_VERSIONS
 
