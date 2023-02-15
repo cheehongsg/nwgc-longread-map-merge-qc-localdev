@@ -13,6 +13,7 @@ process MAP_CCS_BAMS {
 
     output:
         path "*.mapped.bam",  emit: mapped_bam
+        path "versions.yaml", emit: versions
 
     script:
         """
@@ -24,7 +25,7 @@ process MAP_CCS_BAMS {
             $ccsBam \\
             ${ccsBam}.mapped.bam
 
-        cat <<-END_VERSIONS > versions.yml
+        cat <<-END_VERSIONS > versions.yaml
         "${task.process}":
             pbmm2: \$(pbmm2 --version | awk '{print \$2}')
         END_VERSIONS

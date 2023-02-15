@@ -13,6 +13,7 @@ process MERGE_MAPPED_BAMS {
 
     output:
         path "*.merged.sorted.bam",  emit: merged_sorted_bam
+        path "versions.yaml", emit: versions
 
     script:
         """
@@ -26,7 +27,7 @@ process MERGE_MAPPED_BAMS {
             - \
             -o ${params.sampleId}.merged.sorted.bam
 
-        cat <<-END_VERSIONS > versions.yml
+        cat <<-END_VERSIONS > versions.yaml
         "${task.process}":
             samtools: \$(samtools --version | grep ^samtools | awk '{print \$2}')
         END_VERSIONS

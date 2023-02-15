@@ -16,6 +16,7 @@ process ADD_NM_TAGS {
     output:
         path "*.nmtagged.bam",  emit: nmtagged_bam
         path "*.nmtagged.bam.bai",  emit: index
+        path "versions.yaml", emit: versions
 
     script:
         """
@@ -31,7 +32,7 @@ process ADD_NM_TAGS {
             index \
             ${params.sampleId}.merged.sorted.nmtagged.bam
 
-        cat <<-END_VERSIONS > versions.yml
+        cat <<-END_VERSIONS > versions.yaml
         "${task.process}":
             samtools: \$(samtools --version | grep ^samtools | awk '{print \$2}')
         END_VERSIONS

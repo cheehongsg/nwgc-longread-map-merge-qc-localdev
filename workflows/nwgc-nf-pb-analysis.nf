@@ -24,4 +24,19 @@ workflow PB_ANALYSIS {
     PICARD_COVERAGE_METRICS(ADD_NM_TAGS.out.nmtagged_bam)
     NANO_PLOT(ADD_NM_TAGS.out.nmtagged_bam)
     CONTAMINATION_CHECK(ADD_NM_TAGS.out.nmtagged_bam)
+
+    // Versions
+    ch_versions = Channel.empty()
+
+    ch_versions = ch_versions.mix(MAP_CCS_BAMS.out.versions)
+    ch_versions = ch_versions.mix(MERGE_MAPPED_BAMS.out.versions)
+    ch_versions = ch_versions.mix(ADD_NM_TAGS.out.versions)
+    ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions)
+    ch_versions = ch_versions.mix(PICARD_QUALITY_METRICS.out.versions)
+    ch_versions = ch_versions.mix(PICARD_COVERAGE_METRICS.out.versions)
+    ch_versions = ch_versions.mix(NANO_PLOT.out.versions)
+    ch_versions = ch_versions.mix(CONTAMINATION_CHECK.out.versions)
+
+    ch_versions.unique().collectFile(name: 'software_versions.yaml', storeDir: "${params.sampleDir}")
+
 }

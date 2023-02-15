@@ -7,6 +7,7 @@ process NANO_PLOT {
     debug true
     module "$params.initModules"
     module "$params.pythonModule"
+    module "$params.nanoPlotModule"
     memory "$params.nanoPlot.memory"
     clusterOptions "$params.defaultClusterOptions -pe serial $params.nanoPlot.numCPUs -l d_rt=1:0:0"
 
@@ -15,6 +16,7 @@ process NANO_PLOT {
 
     output:
         path "*.stats.txt"
+        path "versions.yaml", emit: versions
 
     script:
         """
@@ -23,6 +25,13 @@ process NANO_PLOT {
         NanoPlot \
             -t $params.nanoPlot.numCPUs \
             --bam $bam
+
+        cat <<-END_VERSIONS > versions.yaml
+        "${task.process}":
+            python: \$(python --version | awk '{print \$2}')
+            NanoPlot: \$(NanoPlot --version | awk '{print \$2}')
+        END_VERSIONS
+
         """
 
 }
