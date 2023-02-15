@@ -37,6 +37,6 @@ workflow PB_ANALYSIS {
     ch_versions = ch_versions.mix(NANO_PLOT.out.versions)
     ch_versions = ch_versions.mix(CONTAMINATION_CHECK.out.versions)
 
-    ch_versions.unique().collectFile(name: 'software_versions.yaml', storeDir: "${params.sampleDir}")
+    ch_versions.unique().collectFile(name: 'software_versions.yaml', storeDir: "${params.sampleDirectory}")
 
 }
