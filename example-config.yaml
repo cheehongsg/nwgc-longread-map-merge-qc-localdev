@@ -1,11 +1,11 @@
 # User
-userId : "<first 4 letters of samplify userId>"
-userEmail : "<userEmail>"
+userId : "<samplify userId>"  # e.g. userid : "kolart"
+userEmail : "<userEmail>"     # e.g. userEmail: "kolart@uw.edu"
 
 # Sample
-sampleDirectory : "<full path to sample directory>"
-sampleQCDirectory : "<full path to sample QC directory>"
-sampleId : <samplify sampleId>
+sampleDirectory : "<full path to sample directory>"    # e.g. sampleDirectory "/net/grc/vol6/data/processed/samples/123456/WHOLE_GENOME"
+sampleQCDirectory : "<full path to sample QC directory>"  # e.g. sampleDirectory "/net/grc/vol6/data/processed/samples/123456/WHOLE_GENOME/qc"
+sampleId : <samplify sampleId>  # e.g sampleId : 123456
 
 # CCS Bams
 ccsBams : [ <comma delmited list of full paths to ccs bams> ]
@@ -13,4 +13,4 @@ ccsBams : [ <comma delmited list of full paths to ccs bams> ]
 
 # VerifyBamID
 verifyBamId_additionalParameters : <any additional parameters for verifyBamId>
-# e.g. verifyBamId.additionalParameters : "--DisableSanityCheck"  ## note that this exact parameter is needed for testing
+# e.g. verifyBamId_additionalParameters : "--DisableSanityCheck"  ## note that this exact parameter is needed for testing

@@ -26,7 +26,7 @@ process MAP_CCS_BAMS {
             ${ccsBam}.mapped.bam
 
         cat <<-END_VERSIONS > versions.yaml
-        ${task.process}_${task.index}:
+        ${task.label}_${task.index}:
             pbmm2: \$(pbmm2 --version | awk '{print \$2}')
         END_VERSIONS
         """
