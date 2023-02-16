@@ -48,7 +48,7 @@ process CONTAMINATION_CHECK {
             --Output ${params.sampleId}.VerifyBamID
 
         cat <<-END_VERSIONS > versions.yaml
-        ${task.process}:
+        '${task.process}':
             samtools: \$(samtools --version | grep ^samtools | awk '{print \$2}')
             VerifyBamId: \$(module list 2>&1 | awk '{for (i=1;i<=NF;i++){if (\$i ~/^VerifyBamID/) {print \$i}}}' | awk -F/ '{print \$NF}')
         END_VERSIONS

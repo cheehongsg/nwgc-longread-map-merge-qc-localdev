@@ -28,7 +28,7 @@ process MERGE_MAPPED_BAMS {
             -o ${params.sampleId}.merged.sorted.bam
 
         cat <<-END_VERSIONS > versions.yaml
-        ${task.process}:
+        '${task.process}':
             samtools: \$(samtools --version | grep ^samtools | awk '{print \$2}')
         END_VERSIONS
 
