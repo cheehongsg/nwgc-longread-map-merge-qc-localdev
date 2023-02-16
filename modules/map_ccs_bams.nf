@@ -6,7 +6,8 @@ process MAP_CCS_BAMS {
     module "$params.initModules"
     module "$params.smrttoolsModule"
     memory "$params.mapCCSBams.memory"
-    clusterOptions "$params.defaultClusterOptions -pe serial $params.mapCCSBams.numCPUs -l d_rt=1:0:0"
+    time "1hour"
+    clusterOptions "$params.defaultClusterOptions -pe serial $params.mapCCSBams.numCPUs"
 
     input:
         path ccsBam
