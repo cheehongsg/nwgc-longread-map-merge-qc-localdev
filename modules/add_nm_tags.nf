@@ -2,7 +2,8 @@ process ADD_NM_TAGS {
 
     label "ADD_NM_TAGS_${params.sampleId}_${params.userId}"
 
-    publishDir "$params.sampleDirectory", mode:  'link'
+    publishDir "$params.sampleDirectory", mode:  'link', pattern: '*.nmtagged.bam'
+    publishDir "$params.sampleDirectory", mode:  'link', pattern: '*.nmtagged.bam.bai'
  
     debug true
     module "$params.initModules"

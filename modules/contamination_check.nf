@@ -2,7 +2,7 @@ process CONTAMINATION_CHECK {
 
     label "CONTAMINATION_CHECK_${params.sampleId}_${params.userId}"
 
-    publishDir "$params.sampleQCDirectory", mode: 'link'
+    publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.VerifyBamID.selfSM'
  
     debug true
     module "$params.initModules"

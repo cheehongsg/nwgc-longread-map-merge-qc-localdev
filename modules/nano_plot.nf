@@ -2,7 +2,9 @@ process NANO_PLOT {
 
     label "NANO_PLOT_${params.sampleId}_${params.userId}"
 
-    publishDir "${params.sampleQCDirectory}/nanoPlot", mode: 'link'
+    publishDir "${params.sampleQCDirectory}/nanoPlot", mode: 'link', pattern: '*.html'
+    publishDir "${params.sampleQCDirectory}/nanoPlot", mode: 'link', pattern: '*.png'
+    publishDir "${params.sampleQCDirectory}/nanoPlot", mode: 'link', pattern: 'NanoStats.txt'
  
     debug true
     module "$params.initModules"

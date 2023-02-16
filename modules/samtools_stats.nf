@@ -2,7 +2,7 @@ process SAMTOOLS_STATS {
 
     label "SAMTOOLS_STATS_${params.sampleId}_${params.userId}"
 
-    publishDir "$params.sampleQCDirectory", mode: 'link'
+    publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.stats.txt'
  
     debug true
     module "$params.initModules"

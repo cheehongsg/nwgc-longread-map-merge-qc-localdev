@@ -2,7 +2,7 @@ process PICARD_QUALITY_METRICS {
 
     label "PICARD_QUALITY_METRICS_${params.sampleId}_${params.userId}"
 
-    publishDir "$params.sampleQCDirectory", mode: 'link'
+    publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.picard.quality.txt'
  
     debug true
     module "$params.initModules"

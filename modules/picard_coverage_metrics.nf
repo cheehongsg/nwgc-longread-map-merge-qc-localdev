@@ -2,7 +2,7 @@ process PICARD_COVERAGE_METRICS {
 
     label "PICARD_COVERAGE_METRICS_${params.sampleId}_${params.userId}"
 
-    publishDir "$params.sampleQCDirectory", mode: 'link'
+    publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.picard.coverage.txt'
  
     debug true
     module "$params.initModules"
