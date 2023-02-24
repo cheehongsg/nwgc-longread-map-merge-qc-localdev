@@ -7,9 +7,9 @@ sampleDirectory : "<full path to sample directory>"    # e.g. sampleDirectory "/
 sampleQCDirectory : "<full path to sample QC directory>"  # e.g. sampleDirectory "/net/nwgc/vol1/data/processed/samples/123456/WHOLE_GENOME/qc"
 sampleId : <samplify sampleId>  # e.g sampleId : 123456
 
-# CCS Bams
-ccsBams : [ <comma delmited list of full paths to ccs bams> ]
-# e.g. ccsBams : ["/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs1-2_downsampled.bam","/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs2-2_downsampled.bam"]
+# HiFI Bams
+hiFiBams : [ <comma delmited list of full paths to hiFi bams> ]
+# e.g. hiFiBams : ["/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs1-2_downsampled.bam","/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs2-2_downsampled.bam"]
 
 # VerifyBamID
 verifyBamId_additionalParameters : <any additional parameters for verifyBamId>
