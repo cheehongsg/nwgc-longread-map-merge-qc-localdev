@@ -19,7 +19,7 @@ process MAP_HIFI_BAMS {
         """
         pbmm2 \\
             align \\
-            --num-threads $params.mapHiFiBamBams.numCPUs \\
+            --num-threads $params.mapHiFiBams.numCPUs \\
             --unmapped \\
             $params.referenceGenome \\
             $hiFiBam \\
