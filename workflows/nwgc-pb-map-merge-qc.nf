@@ -8,7 +8,7 @@ include { PICARD_COVERAGE_METRICS } from '../modules/picard_coverage_metrics.nf'
 include { NANO_PLOT } from '../modules/nano_plot.nf'
 include { CONTAMINATION_CHECK } from '../modules/contamination_check.nf'
 
-workflow PB_ANALYSIS {
+workflow PB_MAP_MERGE_QC {
 
     // Map the HiFi Bams
     def hiFiBams = Channel.fromPath(params.hiFiBams)

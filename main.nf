@@ -1,6 +1,6 @@
 
-include { PB_ANALYSIS } from './workflows/nwgc-nf-pb-analysis.nf'
+include { PB_MAP_MERGE_QC } from './workflows/nwgc-pb-map-merge-qc.nf'
 
 workflow {
-    PB_ANALYSIS()
+    PB_MAP_MERGE_QC()
 }
