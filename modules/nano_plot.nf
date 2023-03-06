@@ -10,8 +10,8 @@ process NANO_PLOT {
     module "$params.initModules"
     module "$params.pythonModule"
     module "$params.nanoPlotModule"
-    memory "$params.nanoPlot.memory"
-    clusterOptions "$params.defaultClusterOptions -pe serial $params.nanoPlot.numCPUs -l d_rt=1:0:0"
+    memory "$params.nanoPlot_memory"
+    clusterOptions "$params.defaultClusterOptions -pe serial $params.nanoPlot_numCPUs -l d_rt=1:0:0"
 
     input:
         path bam
@@ -27,7 +27,7 @@ process NANO_PLOT {
         mkdir -p ${params.sampleQCDirectory}/nanoPlot
 
         NanoPlot \
-            -t $params.nanoPlot.numCPUs \
+            -t $params.nanoPlot_numCPUs \
             --bam $bam
 
         cat <<-END_VERSIONS > versions.yaml

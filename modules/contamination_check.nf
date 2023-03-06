@@ -9,7 +9,7 @@ process CONTAMINATION_CHECK {
     module "$params.samtoolsModule"
     module "$params.htslibModule"
     module "$params.verifyBamIdModule"
-    memory "$params.contaminationCheck.memory"
+    memory "$params.contaminationCheck_memory"
     clusterOptions "$params.defaultClusterOptions -l d_rt=1:0:0"
 
     input:
@@ -31,6 +31,7 @@ process CONTAMINATION_CHECK {
 
         samtools \
             mpileup \
+            -f $params.referenceGenome \
             -B \
             -l \
             \$BEDPATH \

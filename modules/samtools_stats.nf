@@ -7,7 +7,7 @@ process SAMTOOLS_STATS {
     debug true
     module "$params.initModules"
     module "$params.samtoolsModule"
-    memory "$params.samtoolsStats.memory"
+    memory "$params.samtoolsStats_memory"
     clusterOptions "$params.defaultClusterOptions -l d_rt=1:0:0"
 
     input:

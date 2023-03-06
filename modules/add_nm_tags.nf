@@ -8,8 +8,8 @@ process ADD_NM_TAGS {
     debug true
     module "$params.initModules"
     module "$params.samtoolsModule"
-    memory "$params.addNMTags.memory"
-    clusterOptions "$params.defaultClusterOptions -pe serial $params.addNMTags.numCPUs -l d_rt=1:0:0"
+    memory "$params.addNMTags_memory"
+    clusterOptions "$params.defaultClusterOptions -pe serial $params.addNMTags_numCPUs -l d_rt=1:0:0"
 
     input:
         path bam
@@ -24,7 +24,7 @@ process ADD_NM_TAGS {
         samtools \
             calmd \
             -b \
-            --threads $params.addNMTags.numCPUs \
+            --threads $params.addNMTags_numCPUs \
             $bam \
             $params.referenceGenome \
             > ${params.sampleId}.merged.sorted.nmtagged.bam \

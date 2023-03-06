@@ -7,7 +7,7 @@ process PICARD_COVERAGE_METRICS {
     debug true
     module "$params.initModules"
     module "$params.picardModule"
-    memory "$params.picardCoverageMetrics.memory"
+    memory "$params.picardCoverageMetrics_memory"
     clusterOptions "$params.defaultClusterOptions -l d_rt=1:0:0"
 
     input:
@@ -21,8 +21,8 @@ process PICARD_COVERAGE_METRICS {
         """
         mkdir -p $params.sampleQCDirectory
 
-        java -Xmx${params.picardCoverageMetrics.memory} \
-            -jar \$PICARD_DIR/picard.jar CollectRawWgsMetrics \
+        java -Xmx${params.picardCoverageMetrics_memory} \
+            -jar \$PICARD_DIR/picard.jar CollectWgsMetrics \
             --INPUT $bam \
             --COUNT_UNPAIRED true \
             --READ_LENGTH 17000 \

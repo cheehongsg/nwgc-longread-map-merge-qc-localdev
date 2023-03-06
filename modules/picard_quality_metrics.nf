@@ -7,7 +7,7 @@ process PICARD_QUALITY_METRICS {
     debug true
     module "$params.initModules"
     module "$params.picardModule"
-    memory "$params.picardQualityMetrics.memory"
+    memory "$params.picardQualityMetrics_memory"
     clusterOptions "$params.defaultClusterOptions -l d_rt=1:0:0"
 
     input:
@@ -21,7 +21,7 @@ process PICARD_QUALITY_METRICS {
         """
         mkdir -p $params.sampleQCDirectory
 
-        java -Xmx${params.picardQualityMetrics.memory} \
+        java -Xmx${params.picardQualityMetrics_memory} \
             -jar \$PICARD_DIR/picard.jar CollectQualityYieldMetrics \
             --INPUT $bam \
             --VALIDATION_STRINGENCY LENIENT \

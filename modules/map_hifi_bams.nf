@@ -5,8 +5,8 @@ process MAP_HIFI_BAMS {
     debug true
     module "$params.initModules"
     module "$params.smrttoolsModule"
-    memory "$params.mapHiFiBams.memory"
-    clusterOptions "$params.defaultClusterOptions -pe serial $params.mapHiFiBams.numCPUs -l d_rt=1:0:0"
+    memory "$params.mapHiFiBams_memory"
+    clusterOptions "$params.defaultClusterOptions -pe serial $params.mapHiFiBams_numCPUs -l d_rt=1:0:0"
 
     input:
         path hiFiBam
@@ -19,7 +19,7 @@ process MAP_HIFI_BAMS {
         """
         pbmm2 \\
             align \\
-            --num-threads $params.mapHiFiBams.numCPUs \\
+            --num-threads $params.mapHiFiBams_numCPUs \\
             --unmapped \\
             $params.referenceGenome \\
             $hiFiBam \\
