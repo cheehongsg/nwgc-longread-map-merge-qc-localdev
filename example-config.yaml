@@ -11,6 +11,9 @@ sampleId : <samplify sampleId>  # e.g sampleId : 123456
 hiFiBams : [ <comma delmited list of full paths to hiFi bams> ]
 # e.g. hiFiBams : ["/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs1-2_downsampled.bam","/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs2-2_downsampled.bam"]
 
+# Reference Genome
+referenceGenome : "<full path to reference genome fast>"    # e.g. referenceGenome : "/net/nwgc/vol1/references/human/grc38/genome/pacbio/human_GRCh38_no_alt_analysis_set.fasta"
+
 # VerifyBamID
 verifyBamId_additionalParameters : <any additional parameters for verifyBamId>
 # e.g. verifyBamId_additionalParameters : "--DisableSanityCheck"  ## note that this exact parameter is needed for testing
