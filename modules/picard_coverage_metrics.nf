@@ -21,7 +21,7 @@ process PICARD_COVERAGE_METRICS {
         """
         mkdir -p $params.sampleQCDirectory
 
-        java -Xmx${params.picardCoverageMetrics_memory} \
+        java \
             -jar \$PICARD_DIR/picard.jar CollectWgsMetrics \
             --INPUT $bam \
             --COUNT_UNPAIRED true \

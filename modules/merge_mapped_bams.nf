@@ -1,3 +1,6 @@
+samtools_merge_threads = (${params..mergedMapBams_numCPUs}/2) - 1
+samtools_sort_threads = ${params..mergedMapBams_numCPUs}/2
+
 process MERGE_MAPPED_BAMS {
 
     label "MERGE_MAPPED_BAMS_${params.sampleId}_${params.userId}"
@@ -6,7 +9,7 @@ process MERGE_MAPPED_BAMS {
     module "$params.initModules"
     module "$params.samtoolsModule"
     memory "$params.mergeMappedBams_memory"
-    clusterOptions "$params.defaultClusterOptions -l d_rt=1:0:0"
+    clusterOptions "$params.defaultClusterOptions -pe serial $params.mergeMappedBams_numCPUs -l d_rt=1:0:0"
 
     input:
         path bamList
@@ -19,11 +22,14 @@ process MERGE_MAPPED_BAMS {
         """
         samtools \
             merge \
+            --threads $samtools_merge_threads \
             $bamList \
             -o - \
         | \
         samtools \
             sort \
+            -@ $samtools_sort_threads \
+            -m $params.mergedMappedBams_memory \
             - \
             -o ${params.sampleId}.merged.sorted.bam
 
