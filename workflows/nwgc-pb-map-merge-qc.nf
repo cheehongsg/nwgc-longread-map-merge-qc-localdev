@@ -13,8 +13,12 @@ workflow PB_MAP_MERGE_QC {
     def hiFiBams = Channel.fromPath(params.hiFiBams)
     MAP_HIFI_BAMS(hiFiBams)
 
-    // Merge and add NM tags
-    MERGE_MAPPED_BAMS(MAP_HIFI_BAMS.out.mapped_bam.collect())
+    // Merge 
+    def samtools_merge_threads = ("${params.mergeMappedBams_numCPUs}"/2) - 1
+    def samtools_sort_threads = "${params.mergeMappedBams_numCPUs}"/2
+    MERGE_MAPPED_BAMS(MAP_HIFI_BAMS.out.mapped_bam.collect(), samtools_merge_threads, samtools_sort_threads)
+
+    // NM TAGS
     ADD_NM_TAGS(MERGE_MAPPED_BAMS.out.merged_sorted_bam)
 
     // Gather statistics

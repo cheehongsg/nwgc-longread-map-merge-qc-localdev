@@ -1,8 +1,5 @@
 process MERGE_MAPPED_BAMS {
 
-    def samtools_merge_threads = ("${params.mergeMappedBams_numCPUs}"/2) - 1
-    def samtools_sort_threads = "${params.mergeMappedBams_numCPUs}"/2
-
     label "MERGE_MAPPED_BAMS_${params.sampleId}_${params.userId}"
 
     debug true
@@ -13,6 +10,8 @@ process MERGE_MAPPED_BAMS {
 
     input:
         path bamList
+        var samtools_merge_threads
+        var samtools_sort_threads
 
     output:
         path "*.merged.sorted.bam",  emit: merged_sorted_bam
