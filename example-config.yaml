@@ -28,10 +28,6 @@ hiFiBams:
 ### TOOLS
 ##########################################
 
-# Grid Engine
-clusterProject: "<sge project name to schedule jobs on>"   # e.g. clusterProject: "dna"
-defaultClusterOptions: "<string of any additional options needed for all cluster jobs>"   # e.g defaultClusterOptions: "-S /bin/bash -P $params.clusterProject -m as -r yes -R yes"
-
 # Map Hifi Bams
 mapHiFiBams_numCPUs: <Number of CPUs to use for MapHiFiBams Process>   # e.g. mapHiFiBams_numCPUs: 10
 mapHiFiBams_memory: "<Memory to use for MapHiFiBams Process>"          # e.g. mapHiFiBams_memory: "2G"
