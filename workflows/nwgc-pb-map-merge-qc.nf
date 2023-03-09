@@ -14,8 +14,8 @@ workflow PB_MAP_MERGE_QC {
     MAP_HIFI_BAMS(hiFiBams)
 
     // Merge 
-    def samtools_merge_threads = ("${params.mergeMappedBams_numCPUs}"/2) - 1
-    def samtools_sort_threads = "${params.mergeMappedBams_numCPUs}"/2
+    def samtools_merge_threads = (("${params.mergeMappedBams_numCPUs}").toInteger()/2) - 1
+    def samtools_sort_threads = ("${params.mergeMappedBams_numCPUs}").toInteger()/2
     MERGE_MAPPED_BAMS(MAP_HIFI_BAMS.out.mapped_bam.collect(), samtools_merge_threads, samtools_sort_threads)
 
     // NM TAGS
