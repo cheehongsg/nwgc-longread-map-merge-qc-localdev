@@ -1,7 +1,7 @@
-samtools_merge_threads = (${params..mergedMapBams_numCPUs}/2) - 1
-samtools_sort_threads = ${params..mergedMapBams_numCPUs}/2
-
 process MERGE_MAPPED_BAMS {
+
+    samtools_merge_threads = ("${params..mergedMapBams_numCPUs}"/2) - 1
+    samtools_sort_threads = "${params..mergedMapBams_numCPUs}"/2
 
     label "MERGE_MAPPED_BAMS_${params.sampleId}_${params.userId}"
 
