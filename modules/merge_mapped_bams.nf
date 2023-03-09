@@ -1,7 +1,7 @@
 process MERGE_MAPPED_BAMS {
 
-    samtools_merge_threads = ("${params.mergeMappedBams_numCPUs}"/2) - 1
-    samtools_sort_threads = "${params.mergeMappedBams_numCPUs}"/2
+    def samtools_merge_threads = ("${params.mergeMappedBams_numCPUs}"/2) - 1
+    def samtools_sort_threads = "${params.mergeMappedBams_numCPUs}"/2
 
     label "MERGE_MAPPED_BAMS_${params.sampleId}_${params.userId}"
 

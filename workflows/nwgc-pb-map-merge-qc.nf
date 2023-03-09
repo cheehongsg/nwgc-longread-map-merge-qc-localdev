@@ -1,4 +1,3 @@
-
 include { MAP_HIFI_BAMS } from '../modules/map_hifi_bams.nf'
 include { MERGE_MAPPED_BAMS } from '../modules/merge_mapped_bams.nf'
 include { ADD_NM_TAGS } from '../modules/add_nm_tags.nf'
