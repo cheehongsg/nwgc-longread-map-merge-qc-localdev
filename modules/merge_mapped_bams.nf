@@ -10,8 +10,6 @@ process MERGE_MAPPED_BAMS {
 
     input:
         path bamList
-        var merge_threads
-        var sort_threads
 
     output:
         path "*.merged.sorted.bam",  emit: merged_sorted_bam
@@ -21,13 +19,13 @@ process MERGE_MAPPED_BAMS {
         """
         samtools \
             merge \
-            --threads $merge_threads \
+            --threads 9 \
             $bamList \
             -o - \
         | \
         samtools \
             sort \
-            -@ $sort_threads \
+            -@ 10 \
             -m $params.mergedMappedBams_memory \
             - \
             -o ${params.sampleId}.merged.sorted.bam
