@@ -26,7 +26,7 @@ process MERGE_MAPPED_BAMS {
         samtools \
             sort \
             -@ 10 \
-            -m $params.mergedMappedBams_memory \
+            -m $params.mergeMappedBams_memory \
             - \
             -o ${params.sampleId}.merged.sorted.bam
 
