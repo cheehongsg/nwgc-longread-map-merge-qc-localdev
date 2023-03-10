@@ -16,7 +16,7 @@ process MERGE_MAPPED_BAMS {
         path "versions.yaml", emit: versions
 
     script:
-        def numCPUs = Integer.valueOf("$params.mergedMapBams_numCPUs")
+        def numCPUs = Integer.valueOf("$params.mergeMappedBams_numCPUs")
         def merge_threads = Math.max(1, Math.ceil((numCPUs/2) - 1).intValue())
         def sort_threads = Math.max(1, Math.floor(numCPUs/2).intValue())
 
