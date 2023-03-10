@@ -31,7 +31,7 @@ process ADD_NM_TAGS {
         
         samtools \
             index \
-            --threads $params.addNMTags_numCPUs \
+            -@ $params.addNMTags_numCPUs \
             ${params.sampleId}.merged.sorted.nmtagged.bam
 
         cat <<-END_VERSIONS > versions.yaml

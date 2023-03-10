@@ -16,16 +16,20 @@ process MERGE_MAPPED_BAMS {
         path "versions.yaml", emit: versions
 
     script:
+        def numCPUs = Integer.valueOf("$params.mergedMapBams_numCPUs")
+        def merge_threads = Math.max(1, Math.ceil((numCPUs/2) - 1).intValue())
+        def sort_threads = Math.max(1, Math.floor(numCPUs/2).intValue())
+
         """
         samtools \
             merge \
-            --threads 9 \
+            --threads $merge_threads \
             $bamList \
             -o - \
         | \
         samtools \
             sort \
-            -@ 10 \
+            -@ $sort_threads \
             -m $params.mergeMappedBams_memory \
             - \
             -o ${params.sampleId}.merged.sorted.bam
