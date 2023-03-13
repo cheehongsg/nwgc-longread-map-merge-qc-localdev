@@ -20,11 +20,11 @@ workflow PB_MAP_MERGE_QC {
     ADD_NM_TAGS(MERGE_MAPPED_BAMS.out.merged_sorted_bam)
 
     // Gather statistics
-    SAMTOOLS_STATS(ADD_NM_TAGS.out.nmtagged_bam)
-    PICARD_QUALITY_METRICS(ADD_NM_TAGS.out.nmtagged_bam)
-    PICARD_COVERAGE_METRICS(ADD_NM_TAGS.out.nmtagged_bam)
-    NANO_PLOT(ADD_NM_TAGS.out.nmtagged_bam)
-    CONTAMINATION_CHECK(ADD_NM_TAGS.out.nmtagged_bam)
+    SAMTOOLS_STATS(ADD_NM_TAGS.out.bam)
+    PICARD_QUALITY_METRICS(ADD_NM_TAGS.out.bam)
+    PICARD_COVERAGE_METRICS(ADD_NM_TAGS.out.bam)
+    NANO_PLOT(ADD_NM_TAGS.out.bam)
+    CONTAMINATION_CHECK(ADD_NM_TAGS.out.bam)
 
     // Versions
     ch_versions = Channel.empty()

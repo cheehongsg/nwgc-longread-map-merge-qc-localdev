@@ -12,14 +12,17 @@ process ADD_NM_TAGS {
     clusterOptions "$params.defaultClusterOptions -pe serial $params.addNMTags_numCPUs -l d_rt=1:0:0"
 
     input:
-        path bam
+        path inputBam
 
     output:
-        path "*.nmtagged.bam",  emit: nmtagged_bam
-        path "*.nmtagged.bam.bai",  emit: index
+        path "${params.sampleId}.${params.sequencingTarget}.bam", emit: bam
+        path "${params.sampleId}.${params.sequencingTarget}.bam.bai", emit: index
+        path "${params.sampleId}.${params.sequencingTarget}.bam.md5sum", emit: md5sum
         path "versions.yaml", emit: versions
 
     script:
+        def outputBam = ${params.sampleId}.${params.sequencingTarget}.bam
+
         """
         samtools \
             calmd \
@@ -27,12 +30,14 @@ process ADD_NM_TAGS {
             --threads $params.addNMTags_numCPUs \
             $bam \
             $params.referenceGenome \
-            > ${params.sampleId}.merged.sorted.nmtagged.bam \
+            > $outputBam \
         
         samtools \
             index \
             -@ $params.addNMTags_numCPUs \
-            ${params.sampleId}.merged.sorted.nmtagged.bam
+            $outputBam
+
+        md5sum $outputBam | awk '{print \$1}' > $outputBam.md5sum
 
         cat <<-END_VERSIONS > versions.yaml
         '${task.process}':

@@ -11,6 +11,9 @@ sampleDirectory: "<full path to sample directory>"    # e.g. sampleDirectory: "/
 sampleQCDirectory: "<full path to sample QC directory>"  # e.g. sampleQCDirectory: "/net/nwgc/vol1/data/processed/samples/123456/WHOLE_GENOME/qc"
 sampleId: <samplify sampleId>  # e.g sampleId: 123456
 
+# Target
+sequencingTarget: "<name of sequencing target>"   # e.g. sequencingTarget: "WHOLE_GENOME"
+
 # Reference Genome
 referenceGenome: "<full path to reference genome fasta>"    # e.g. referenceGenome: "/net/nwgc/vol1/references/human/grc38/genome/pacbio/human_GRCh38_no_alt_analysis_set.fasta"
 
