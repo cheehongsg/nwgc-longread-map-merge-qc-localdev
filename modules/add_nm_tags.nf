@@ -21,7 +21,7 @@ process ADD_NM_TAGS {
         path "versions.yaml", emit: versions
 
     script:
-        def outputBam = ${params.sampleId}.${params.sequencingTarget}.bam
+        def outputBam = "$params.sampleId" + "." + "$params.sequencingTarget" + ".bam"
 
         """
         samtools \
