@@ -35,7 +35,7 @@ process ADD_NM_TAGS {
         samtools \
             index \
             -@ $params.addNMTags_numCPUs \
-            ${outputBam}.bai
+            $outputBam
 
         md5sum $outputBam | awk '{print \$1}' > ${outputBam}.md5sum
 
