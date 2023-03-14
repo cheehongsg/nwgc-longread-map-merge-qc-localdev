@@ -28,7 +28,7 @@ process ADD_NM_TAGS {
             calmd \
             -b \
             --threads $params.addNMTags_numCPUs \
-            $bam \
+            $inputBam \
             $params.referenceGenome \
             > $outputBam \
         
