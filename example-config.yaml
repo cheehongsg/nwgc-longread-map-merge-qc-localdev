@@ -51,7 +51,10 @@ samtoolsStats_memory: "<Memory to use for SamtoolsStats Process>"          # e.g
 picardQualityMetrics_memory: "<Memory to use for PicardQualityMetrics Process>"          # e.g. picardQualityMetrics_memory: "10G"
 
 # Picard Coverage Metrics
-picardCoverageMetrics_memory: "<Memory to use for PicardCoverageMetrics Process>"        # e.g. picardCoverageMetrics_memory: "80G"
+picardCoverageMetrics_memory: "<Memory to use for PicardCoverageMetrics Process>"            # e.g. picardCoverageMetrics_memory: "20G"
+# These two parameters appear to make the program run faster and consume memory within the limits of that specified above
+picardCoverageMetrics_initialRAMPercentage: <percentage of memory to use initially in RAM>"  # e.g. picardCoverageMetrics_initialRAMPercentage: "90"
+picardCoverageMetrics_maxRAMPercentage: <max percentage of memory in RAM>"  				 # e.g. picardCoverageMetrics_maxRAMPercentage: "95"
 
 # NanoPlot
 nanoPlot_numCPUs: <Number of CPUs to use for NanoPlot Process>   # e.g. nanoPlot_numCPUs: 10

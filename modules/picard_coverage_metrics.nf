@@ -22,6 +22,8 @@ process PICARD_COVERAGE_METRICS {
         mkdir -p $params.sampleQCDirectory
 
         java \
+            -XX:IntialRamPercentage=$params.picardCoverageMetrics_initialRAMPercentage \
+            -XX:MaxRamPercentage=$params.picardCoverageMetrics_maxRAMPercentage \
             -jar \$PICARD_DIR/picard.jar CollectWgsMetrics \
             --INPUT $bam \
             --COUNT_UNPAIRED true \

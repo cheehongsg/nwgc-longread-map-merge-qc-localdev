@@ -30,7 +30,7 @@ process ADD_NM_TAGS {
             --threads $params.addNMTags_numCPUs \
             $inputBam \
             $params.referenceGenome \
-            > $outputBam \
+            > $outputBam
         
         samtools \
             index \
