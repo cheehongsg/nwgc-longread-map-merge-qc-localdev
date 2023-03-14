@@ -35,9 +35,9 @@ process ADD_NM_TAGS {
         samtools \
             index \
             -@ $params.addNMTags_numCPUs \
-            $outputBam
+            ${outputBam}.bai
 
-        md5sum $outputBam | awk '{print \$1}' > $outputBam.md5sum
+        md5sum $outputBam | awk '{print \$1}' > ${outputBam}.md5sum
 
         cat <<-END_VERSIONS > versions.yaml
         '${task.process}':
