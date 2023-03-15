@@ -2,8 +2,9 @@ process ADD_NM_TAGS {
 
     label "ADD_NM_TAGS_${params.sampleId}_${params.userId}"
 
-    publishDir "$params.sampleDirectory", mode:  'link', pattern: '*.nmtagged.bam'
-    publishDir "$params.sampleDirectory", mode:  'link', pattern: '*.nmtagged.bam.bai'
+    publishDir "$params.sampleDirectory", mode:  'link', pattern: "${params.sampleId}.${params.sequencingTarget}.bam"
+    publishDir "$params.sampleDirectory", mode:  'link', pattern: "${params.sampleId}.${params.sequencingTarget}.bai"
+    publishDir "$params.sampleDirectory", mode:  'link', pattern: "${params.sampleId}.${params.sequencingTarget}.md5sum"
  
     debug true
     module "$params.initModules"
