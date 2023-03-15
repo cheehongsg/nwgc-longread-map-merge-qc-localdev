@@ -12,6 +12,7 @@ process PICARD_COVERAGE_METRICS {
 
     input:
         path bam
+        path bai
 
     output:
         path "*.picard.coverage.txt"

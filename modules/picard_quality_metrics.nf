@@ -12,6 +12,7 @@ process PICARD_QUALITY_METRICS {
 
     input:
         path bam
+        path bai
 
     output:
         path "*.picard.quality.txt"

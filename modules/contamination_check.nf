@@ -14,6 +14,7 @@ process CONTAMINATION_CHECK {
 
     input:
         path bam
+        path bai
 
     output:
         path "*.VerifyBamID.selfSM"

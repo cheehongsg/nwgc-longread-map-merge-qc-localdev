@@ -15,6 +15,7 @@ process NANO_PLOT {
 
     input:
         path bam
+        path bai
 
     output:
         path "*.html", emit: html

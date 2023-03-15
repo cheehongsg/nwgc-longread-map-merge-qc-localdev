@@ -12,6 +12,7 @@ process SAMTOOLS_STATS {
 
     input:
         path bam
+        path bai
 
     output:
         path "*.stats.txt"
