@@ -6,6 +6,7 @@ include { PICARD_QUALITY_METRICS } from '../modules/picard_quality_metrics.nf'
 include { PICARD_COVERAGE_METRICS } from '../modules/picard_coverage_metrics.nf'
 include { NANO_PLOT } from '../modules/nano_plot.nf'
 include { CONTAMINATION_CHECK } from '../modules/contamination_check.nf'
+include { CREATE_FINGEPRINT_VCF } from '../modules/create_fingerprint_vcf.nf'
 
 workflow PB_MAP_MERGE_QC {
 
@@ -25,6 +26,7 @@ workflow PB_MAP_MERGE_QC {
     PICARD_COVERAGE_METRICS(ADD_NM_TAGS.out.bam, ADD_NM_TAGS.out.bai)
     NANO_PLOT(ADD_NM_TAGS.out.bam, ADD_NM_TAGS.out.bai)
     CONTAMINATION_CHECK(ADD_NM_TAGS.out.bam, ADD_NM_TAGS.out.bai)
+    CREATE_FINGEPRINT_VCF(ADD_NM_TAGS.out.bam, ADD_NM_TAGS.out.bai)
 
     // Versions
     ch_versions = Channel.empty()
@@ -37,6 +39,7 @@ workflow PB_MAP_MERGE_QC {
     ch_versions = ch_versions.mix(PICARD_COVERAGE_METRICS.out.versions)
     ch_versions = ch_versions.mix(NANO_PLOT.out.versions)
     ch_versions = ch_versions.mix(CONTAMINATION_CHECK.out.versions)
+    ch_versions = ch_versions.mix(CREATE_FINGEPRINT_VCF.out.versions)
 
     ch_versions.unique().collectFile(name: 'software_versions.yaml', storeDir: "${params.sampleDirectory}")
 

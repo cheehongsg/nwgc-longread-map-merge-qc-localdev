@@ -17,6 +17,9 @@ sequencingTarget: "<name of sequencing target>"   # e.g. sequencingTarget: "WHOL
 # Reference Genome
 referenceGenome: "<full path to reference genome fasta>"    # e.g. referenceGenome: "/net/nwgc/vol1/references/human/grc38/genome/pacbio/human_GRCh38_no_alt_analysis_set.fasta"
 
+# Fingerprint Bed
+fingerprintBed: "<full path to fingerprint bed>"    # e.g. fingerprintBed: "/net/nwgc/vol1/references/human/grc38/targets/fingerprint_grc38_aou.bed"
+
 # HiFI Bams
 hiFiBams:
   - "<full path to first hiFiBam>"
@@ -64,3 +67,5 @@ nanoPlot_memory: "<Memory to use for NanoPlot Process>"          # e.g. nanoPlot
 contaminationCheck_memory: "<Memory to use for ContaminationCheck Process>"      # e.g. contaminationCheck_memory: "10G"
 verifyBamId_additionalParameters: "<Usually blank, needed for testing>"   # e.g. verifyBamId_additionalParameters : "--DisableSanityCheck"  ## note that this exact parameter is needed for testing
 
+# Fingerprint
+createFingerprintVcf_memory: "<Memory to use for CreateFingerprintVCF Process>"      # e.g. createFingerprintVcf_memory: "10G"
