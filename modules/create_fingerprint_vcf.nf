@@ -31,8 +31,8 @@ process CREATE_FINGEPRINT_VCF {
             -X pacbio-ccs \
             -f $params.referenceGenome \
             -R $params.fingerprintBed \
-            $bam
-        |
+            $bam \
+        | \
         bcftools \
             call \
             -m \
@@ -42,7 +42,7 @@ process CREATE_FINGEPRINT_VCF {
 
         bgzip -f ${params.sampleId}.fingerprint.vcf
 
-        tabix -f ${params.sampleId}.fingerprint.vcf
+        tabix -f ${params.sampleId}.fingerprint.vcf.gz
 
         cat <<-END_VERSIONS > versions.yaml
         '${task.process}':
