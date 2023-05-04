@@ -31,6 +31,12 @@ hiFiBams:
 #  - "/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs2-2_downsampled.bam"
 
 ##########################################
+### RabbitMQ
+##########################################
+rabbitHost: "<name of host for rabbitMQ>"				#e.g rabbitHost: "burnet"
+registration_url: "<url to send rabbit message to>"		#e.g.registration_url: "http://burnet.gs.grid.washington.edu/samplify/RegisterPacBioMapMergeQCCompletion"
+
+##########################################
 ### TOOLS
 ##########################################
 
