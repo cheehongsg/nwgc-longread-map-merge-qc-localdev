@@ -7,9 +7,9 @@ workflow {
 }
 
 workflow.onError {
-    NwgcCore.error(workflow, params.sampleId)
+    NwgcCore.error(workflow, "$params.sampleId")
 }
 
 workflow.onComplete {
-    NwgcCore.processComplete(workflow, params.sampleId)
+    NwgcCore.processComplete(workflow, "$params.sampleId")
 }
