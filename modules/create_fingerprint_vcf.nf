@@ -5,14 +5,6 @@ process CREATE_FINGEPRINT_VCF {
     publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.fingerprint.vcf.gz'
     publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.fingerprint.vcf.gz.tbi'
  
-    debug true
-    module "$params.initModules"
-    module "$params.htslibModule"
-    module "$params.bcftoolsModule"
-    module "$params.tabixModule"
-    memory "$params.createFingerprintVcf_memory"
-    clusterOptions "$params.defaultClusterOptions -l d_rt=1:0:0"
-
     input:
         path bam
         path bai

@@ -6,12 +6,6 @@ process ADD_NM_TAGS {
     publishDir "$params.sampleDirectory", mode:  'link', pattern: "${params.sampleId}.${params.sequencingTarget}.bam.bai"
     publishDir "$params.sampleDirectory", mode:  'link', pattern: "${params.sampleId}.${params.sequencingTarget}.bam.md5sum"
  
-    debug true
-    module "$params.initModules"
-    module "$params.samtoolsModule"
-    memory "$params.addNMTags_memory"
-    clusterOptions "$params.defaultClusterOptions -pe serial $params.addNMTags_numCPUs -l d_rt=1:0:0"
-
     input:
         path inputBam
 
@@ -28,14 +22,14 @@ process ADD_NM_TAGS {
         samtools \
             calmd \
             -b \
-            --threads $params.addNMTags_numCPUs \
+            --threads $task.cpus \
             $inputBam \
             $params.referenceGenome \
             > $outputBam
         
         samtools \
             index \
-            -@ $params.addNMTags_numCPUs \
+            -@ $task.cpus \
             $outputBam
 
         md5sum $outputBam | awk '{print \$1}' > ${outputBam}.md5sum

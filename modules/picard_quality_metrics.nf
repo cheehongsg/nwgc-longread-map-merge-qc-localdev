@@ -4,12 +4,6 @@ process PICARD_QUALITY_METRICS {
 
     publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.picard.quality.txt'
  
-    debug true
-    module "$params.initModules"
-    module "$params.picardModule"
-    memory "$params.picardQualityMetrics_memory"
-    clusterOptions "$params.defaultClusterOptions -l d_rt=1:0:0"
-
     input:
         path bam
         path bai

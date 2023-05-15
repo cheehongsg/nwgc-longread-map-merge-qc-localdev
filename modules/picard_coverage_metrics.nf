@@ -4,12 +4,6 @@ process PICARD_COVERAGE_METRICS {
 
     publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.picard.coverage.txt'
  
-    debug true
-    module "$params.initModules"
-    module "$params.picardModule"
-    memory "$params.picardCoverageMetrics_memory"
-    clusterOptions "$params.defaultClusterOptions -l d_rt=1:0:0"
-
     input:
         path bam
         path bai
@@ -23,8 +17,8 @@ process PICARD_COVERAGE_METRICS {
         mkdir -p $params.sampleQCDirectory
 
         java \
-            -XX:InitialRAMPercentage=$params.picardCoverageMetrics_initialRAMPercentage \
-            -XX:MaxRAMPercentage=$params.picardCoverageMetrics_maxRAMPercentage \
+            -XX:InitialRAMPercentage=80 \
+            -XX:MaxRAMPercentage=85 \
             -jar \$PICARD_DIR/picard.jar CollectWgsMetrics \
             --INPUT $bam \
             --COUNT_UNPAIRED true \

@@ -6,13 +6,6 @@ process NANO_PLOT {
     publishDir "${params.sampleQCDirectory}/nanoPlot", mode: 'link', pattern: '*.png'
     publishDir "${params.sampleQCDirectory}/nanoPlot", mode: 'link', pattern: 'NanoStats.txt'
  
-    debug true
-    module "$params.initModules"
-    module "$params.pythonModule"
-    module "$params.nanoPlotModule"
-    memory "$params.nanoPlot_memory"
-    clusterOptions "$params.defaultClusterOptions -pe serial $params.nanoPlot_numCPUs -l d_rt=1:0:0"
-
     input:
         path bam
         path bai
@@ -28,7 +21,7 @@ process NANO_PLOT {
         mkdir -p ${params.sampleQCDirectory}/nanoPlot
 
         NanoPlot \
-            -t $params.nanoPlot_numCPUs \
+            -t $task.cpus \
             --bam $bam
 
         cat <<-END_VERSIONS > versions.yaml

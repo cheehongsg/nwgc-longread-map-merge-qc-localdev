@@ -3,14 +3,6 @@ process CONTAMINATION_CHECK {
     label "CONTAMINATION_CHECK_${params.sampleId}_${params.userId}"
 
     publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.VerifyBamID.selfSM'
- 
-    debug true
-    module "$params.initModules"
-    module "$params.samtoolsModule"
-    module "$params.htslibModule"
-    module "$params.verifyBamIdModule"
-    memory "$params.contaminationCheck_memory"
-    clusterOptions "$params.defaultClusterOptions -l d_rt=1:0:0"
 
     input:
         path bam
@@ -21,6 +13,8 @@ process CONTAMINATION_CHECK {
         path "versions.yaml", emit: versions
 
     script:
+        def disableSanityCheck = params.mode == 'test' ? '--DisableSanityChecks' : ''
+
         """
         mkdir -p $params.sampleQCDirectory
 
@@ -46,7 +40,7 @@ process CONTAMINATION_CHECK {
             --MeanPath \$MEANPATH \
             --Reference $params.referenceGenome \
             --Verbose \
-            $params.verifyBamId_additionalParameters \
+            $disableSanityCheck \
             --Output ${params.sampleId}.VerifyBamID
 
         cat <<-END_VERSIONS > versions.yaml

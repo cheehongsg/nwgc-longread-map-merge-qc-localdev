@@ -3,12 +3,6 @@ process SAMTOOLS_STATS {
     label "SAMTOOLS_STATS_${params.sampleId}_${params.userId}"
 
     publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.stats.txt'
- 
-    debug true
-    module "$params.initModules"
-    module "$params.samtoolsModule"
-    memory "$params.samtoolsStats_memory"
-    clusterOptions "$params.defaultClusterOptions -pe serial $params.samtoolsStats_numCPUs -l d_rt=1:0:0"
 
     input:
         path bam
@@ -25,7 +19,7 @@ process SAMTOOLS_STATS {
         samtools \
             stats \
             $bam \
-            --threads $params.samtoolsStats_numCPUs \
+            --threads $taks.cpus \
             > ${params.sampleId}.samtools.stats.txt \
 
         cat <<-END_VERSIONS > versions.yaml
