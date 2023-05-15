@@ -24,7 +24,7 @@ process MERGE_MAPPED_BAMS {
         samtools \
             sort \
             -@ $sort_threads \
-            -m $task.memory \
+            -m 1G \
             - \
             -o ${params.sampleId}.merged.sorted.bam
 
