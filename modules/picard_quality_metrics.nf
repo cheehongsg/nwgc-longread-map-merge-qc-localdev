@@ -13,10 +13,13 @@ process PICARD_QUALITY_METRICS {
         path "versions.yaml",  emit: versions
 
     script:
+        def taskMemoryString = "$task.memory"
+        def javaMemory = taskMemoryString.substring(0, taskMemoryString.length() - 1)
+
         """
         mkdir -p $params.sampleQCDirectory
 
-        java -Xmx${params.picardQualityMetrics_memory} \
+        java -Xmx$javaMemory \
             -jar \$PICARD_DIR/picard.jar CollectQualityYieldMetrics \
             --INPUT $bam \
             --VALIDATION_STRINGENCY LENIENT \
