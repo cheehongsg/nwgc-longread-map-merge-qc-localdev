@@ -19,7 +19,7 @@ process SAMTOOLS_STATS {
         samtools \
             stats \
             $bam \
-            --threads $taks.cpus \
+            --threads $task.cpus \
             > ${params.sampleId}.samtools.stats.txt \
 
         cat <<-END_VERSIONS > versions.yaml
