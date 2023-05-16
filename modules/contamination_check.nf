@@ -13,7 +13,7 @@ process CONTAMINATION_CHECK {
         path "versions.yaml", emit: versions
 
     script:
-        def disableSanityCheck = params.mode == 'test' ? '--DisableSanityChecks' : ''
+        def disableSanityCheck = params.mode == 'test' ? '--DisableSanityCheck' : ''
 
         """
         mkdir -p $params.sampleQCDirectory
