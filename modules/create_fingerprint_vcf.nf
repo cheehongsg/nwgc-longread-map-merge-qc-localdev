@@ -1,6 +1,6 @@
-process CREATE_FINGEPRINT_VCF {
+process CREATE_FINGERPRINT_VCF {
 
-    label "CREATE_FINGEPRINT_VCF_${params.sampleId}_${params.userId}"
+    label "CREATE_FINGERPRINT_VCF_${params.sampleId}_${params.userId}"
 
     publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.fingerprint.vcf.gz'
     publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.fingerprint.vcf.gz.tbi'

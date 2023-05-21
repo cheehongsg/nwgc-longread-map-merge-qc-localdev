@@ -1,15 +1,25 @@
-
-include { PB_MAP_MERGE_QC } from './workflows/nwgc-pb-map-merge-qc.nf'
+include { PACBIO_MAP_MERGE } from './workflows/pacbio-map-merge.nf'
+include { ONT_MAP_MERGE } from './workflows/ont-map-merge.nf'
+include { LONGREAD_QC } from './workflows/qc.nf'
 
 workflow {
-    NwgcCore.init(params)
-    PB_MAP_MERGE_QC()
-}
 
-workflow.onError {
-    NwgcCore.error(workflow, "$params.sampleId")
-}
+    // Map-Merge
+    if (params.mergedBam == null) {
+        if (params.sequencingPlatform.equalsIgnoreCase("PacBio")) {
+            PACBIO_MAP_MERGE()
+            LONGREAD_QC(PACBIO_MAP_MERGE.out.bam, PACBIO_MAP_MERGE.out.bai)
+        }
+        else if (params.sequencingPlatform.equalsIgnoreCase("ONT")) {
+            ONT_MAP_MERGE()
+            LONGREAD_QC(ONT_MAP_MERGE.out.bam, ONT_MAP_MERGE.out.bai)
+        }
+        else {
+            error "Error:  Unknown sequencingPlatform: ${params.sequencingPlatform}."
+        }
+    }
+    else {
+        LONGREAD_QC(params.mergedBam, "${params.mergedBam}.bai")
+    }
 
-workflow.onComplete {
-    NwgcCore.processComplete(workflow, "$params.sampleId")
 }

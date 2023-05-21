@@ -1,9 +1,9 @@
-process MAP_HIFI_BAMS {
+process MAP_ONT_FASTQ {
 
-    label "MAP_HIFI_BAMS_${params.sampleId}_${params.userId}"
+    label "MAP_ONT_FASTQ_${params.sampleId}_${params.userId}"
 
     input:
-        path hiFiBam
+        path fastq
 
     output:
         path "*.mapped.bam",  emit: mapped_bam
@@ -16,8 +16,8 @@ process MAP_HIFI_BAMS {
             --num-threads $task.cpus \\
             --unmapped \\
             $params.referenceGenome \\
-            $hiFiBam \\
-            ${hiFiBam}.mapped.bam
+            $fastq \\
+            ${fastq}.mapped.bam
 
         cat <<-END_VERSIONS > versions.yaml
         '${task.process}_${task.index}':
