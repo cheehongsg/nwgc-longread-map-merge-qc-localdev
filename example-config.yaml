@@ -12,7 +12,9 @@ sampleQCDirectory: "<full path to sample QC directory>"  # e.g. sampleQCDirector
 sampleId: <samplify sampleId>  # e.g sampleId: 123456
 
 # Target
-sequencingTarget: "<name of sequencing target>"   # e.g. sequencingTarget: "WHOLE_GENOME"
+sequencingPlatform: "<name of sequencing platform (PacBio or ONT)"   		# e.g. sequencingPlatform: "PacBio"
+sequencerType: "<name of sequencer type (Sequel or Revio or Prometheon)>"   # e.g. sequencerType: "Revio"
+sequencingTarget: "<name of sequencing target>"   							# e.g. sequencingTarget: "WHOLE_GENOME"
 
 # Reference Genome
 referenceGenome: "<full path to reference genome fasta>"    # e.g. referenceGenome: "/net/nwgc/vol1/references/human/grc38/genome/pacbio/human_GRCh38_no_alt_analysis_set.fasta"
@@ -20,7 +22,8 @@ referenceGenome: "<full path to reference genome fasta>"    # e.g. referenceGeno
 # Fingerprint Bed
 fingerprintBed: "<full path to fingerprint bed>"    # e.g. fingerprintBed: "/net/nwgc/vol1/references/human/grc38/targets/fingerprint_grc38_aou.bed"
 
-# HiFI Bams
+### MAIN INPUT - Only one fo the following should be used (hifiBams, ontFastqs, mergedBam) 
+# HiFI Bams (for PacBio)
 hiFiBams:
   - "<full path to first hiFiBam>"
   - "<full path to second hiFiBam>"
@@ -29,6 +32,11 @@ hiFiBams:
 #hiFiBams:
 #  - "/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs1-2_downsampled.bam"
 #  - "/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs2-2_downsampled.bam"
+
+
+# mergedBam (for running qc on an already existing merged bam)
+mergedBam: "<full path to a merged bam that contains nm tags>"  # e.g.  mergedBam: /net/nwgc/vol1/home/kolart/pacbio_merged_test.bam   
+
 
 ##########################################
 ### RabbitMQ

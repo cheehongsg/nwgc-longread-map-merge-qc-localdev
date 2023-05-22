@@ -15,12 +15,15 @@ process CREATE_FINGERPRINT_VCF {
         path "versions.yaml", emit: versions
 
     script:
+    
+        def bcftools_platform_specific_configuration_profile = $params.sequencingPlatform.equalsIgnoreCase("pacbio") ? "pacbio-ccs" : "ont"
+
         """
         mkdir -p $params.sampleQCDirectory
 
         bcftools \
             mpileup \
-            -X pacbio-ccs \
+            -X $bcftools_platform_specific_configuration_profile \
             -f $params.referenceGenome \
             -R $params.fingerprintBed \
             $bam \
