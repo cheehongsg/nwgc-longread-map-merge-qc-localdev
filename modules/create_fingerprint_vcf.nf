@@ -16,7 +16,7 @@ process CREATE_FINGERPRINT_VCF {
 
     script:
     
-        def bcftools_platform_specific_configuration_profile = $params.sequencingPlatform.equalsIgnoreCase("pacbio") ? "pacbio-ccs" : "ont"
+        def bcftools_platform_specific_configuration_profile = params.sequencingPlatform.equalsIgnoreCase("pacbio") ? "pacbio-ccs" : "ont"
 
         """
         mkdir -p $params.sampleQCDirectory
