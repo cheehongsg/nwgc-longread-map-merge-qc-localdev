@@ -22,7 +22,8 @@ referenceGenome: "<full path to reference genome fasta>"    # e.g. referenceGeno
 # Fingerprint Bed
 fingerprintBed: "<full path to fingerprint bed>"    # e.g. fingerprintBed: "/net/nwgc/vol1/references/human/grc38/targets/fingerprint_grc38_aou.bed"
 
-### MAIN INPUT - Only one fo the following should be used (hifiBams, ontFastqs, mergedBam) 
+##########################################
+### DATA INPUT - Only one fo the following should be used (hifiBams, ontFastqs, mergedBam) 
 # HiFI Bams (for PacBio)
 hiFiBams:
   - "<full path to first hiFiBam>"
@@ -33,6 +34,15 @@ hiFiBams:
 #  - "/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs1-2_downsampled.bam"
 #  - "/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs2-2_downsampled.bam"
 
+# ONT Fastqs (for ONT)
+ontFastqs:
+  - "<full path to first fastq>"
+  - "<full path to second fastq>"
+  - "<repeat for more fastqs"
+# e.g.
+#ontFastqs:
+#  - "/net/nwgc/vol1/home/kolart/nextflow_ont_test/test_1.fastq.gz"
+#  - "/net/nwgc/vol1/home/kolart/nextflow_ont_test/test_2.fastq.gz"
 
 # mergedBam (for running qc on an already existing merged bam)
 mergedBam: "<full path to a merged bam that contains nm tags>"  # e.g.  mergedBam: /net/nwgc/vol1/home/kolart/pacbio_merged_test.bam   

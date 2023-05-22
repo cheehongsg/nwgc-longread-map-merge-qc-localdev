@@ -11,17 +11,23 @@ process MAP_ONT_FASTQ {
 
     script:
         """
-        pbmm2 \\
-            align \\
-            --num-threads $task.cpus \\
-            --unmapped \\
+        minimap2 \\
+            -a \\
+            -x map-ont \\
+            --MD \\
             $params.referenceGenome \\
             $fastq \\
-            ${fastq}.mapped.bam
+        | \\
+        samtools \\
+            view \\
+            -b \\
+            - \\
+            -o ${fastq}.mapped.bam
 
         cat <<-END_VERSIONS > versions.yaml
         '${task.process}_${task.index}':
             pbmm2: \$(pbmm2 --version | awk '{print \$2}')
+            samtools: \$(samtools --version | grep ^samtools | awk '{print \$2}')
         END_VERSIONS
         """
 
