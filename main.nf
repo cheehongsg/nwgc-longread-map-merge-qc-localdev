@@ -3,6 +3,7 @@ include { ONT_MAP_MERGE } from './workflows/ont-map-merge.nf'
 include { LONGREAD_QC } from './workflows/qc.nf'
 
 workflow {
+    NwgcCore.init(params)
 
     // Map-Merge
     if (params.mergedBam == null) {
@@ -21,5 +22,12 @@ workflow {
     else {
         LONGREAD_QC(params.mergedBam, "${params.mergedBam}.bai")
     }
+}
 
+workflow.onError {
+    NwgcCore.error(workflow, "$params.sampleId")
+}
+
+workflow.onComplete {
+    NwgcCore.processComplete(workflow, "$params.sampleId")
 }
