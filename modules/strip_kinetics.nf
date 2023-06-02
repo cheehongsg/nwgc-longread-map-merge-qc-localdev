@@ -12,7 +12,13 @@ process STRIP_KINETICS {
 
     script:
         """
-        if samtools view -H $bam | grep ^@PG | grep ID:primrose | grep -q keep-kinetics; then
+        PRIMROSE_WAS_RUN=true
+        if ! samtools view -H $bam | grep ^@PG | grep -q ID:primrose ; then PRIMROSE_WAS_RUN=false; fi
+
+        PRIMROSE_KEPT_KINETECS=false
+        if samtools view -H $bam | grep ^@PG | grep ID:primrose | grep -q keep-kinetics; then PRIMROSE_KEPT_KINETECS=true; fi
+
+        if [[ "\$PRIMROSE_WAS_RUN" = false || "\$PRIMROSE_KEPT_KINETECS" = true ]] ; then
             primrose \
                 -j $task.cpus \
                 $bam \
