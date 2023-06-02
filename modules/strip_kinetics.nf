@@ -1,6 +1,6 @@
 process STRIP_KINETICS {
 
-    label "STRIP_KINETICS_${params.sampleId}_${params.userId}_$task.id"
+    label "STRIP_KINETICS_${params.sampleId}_${params.userId}"
 
     input:
         path bam
