@@ -1,3 +1,4 @@
+include { STRIP_KINETICS } from '../modules/strip_kinetics.nf'
 include { MAP_HIFI_BAM } from '../modules/map_hifi_bam.nf'
 include { MERGE_MAPPED_BAMS } from '../modules/merge_mapped_bams.nf'
 include { ADD_NM_TAGS } from '../modules/add_nm_tags.nf'
@@ -6,7 +7,15 @@ workflow PACBIO_MAP_MERGE {
 
     main:
         def hiFiBams = Channel.fromPath(params.hiFiBams)
-        MAP_HIFI_BAM(hiFiBams)
+
+        // Map
+        if (params.stripKinetics) {
+            STRIP_KINETICS(hifBams)
+            MAP_HIFI_BAM(STRIP_KINETICS.out.bam)
+        }
+        else {
+            MAP_HIFI_BAM(hiFiBams)
+        }
 
         // Merge
         MERGE_MAPPED_BAMS(MAP_HIFI_BAM.out.mapped_bam.collect())

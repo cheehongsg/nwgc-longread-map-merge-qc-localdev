@@ -1,6 +1,6 @@
 process MAP_HIFI_BAM {
 
-    label "MAP_HIFI_BAM_${params.sampleId}_${params.userId}"
+    label "MAP_HIFI_BAM_${params.sampleId}_${params.userId}_$task.id"
 
     input:
         path hiFiBam
