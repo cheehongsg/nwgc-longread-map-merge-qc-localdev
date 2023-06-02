@@ -10,7 +10,7 @@ workflow PACBIO_MAP_MERGE {
 
         // Map
         if (params.stripKinetics) {
-            STRIP_KINETICS(hifBams)
+            STRIP_KINETICS(hiFiBams)
             MAP_HIFI_BAM(STRIP_KINETICS.out.bam)
         }
         else {
