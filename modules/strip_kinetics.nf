@@ -18,7 +18,7 @@ process STRIP_KINETICS {
                 $bam \
                 ${bam}.primrose.bam;
         else
-                cp $bam ${bam}.primrose.bam;
+                ln $bam ${bam}.primrose.bam;
         fi
 
         samtools \
