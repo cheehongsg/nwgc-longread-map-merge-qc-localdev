@@ -3,10 +3,12 @@ include { MERGE_MAPPED_BAMS } from '../modules/merge_mapped_bams.nf'
 
 workflow ONT_MAP_MERGE {
 
-    def ontFastqsPath = params.ontFastqsFolder + "/*.fastq.gz"
-
     main:
-        def ontFastqs = Channel.fromPath(ontFastqsPath)
+        def ontFastqs = Channel.empty()
+        for (ontFastqFolder in params.ontFastqFolders) {
+            fastqFolderChannel = Channel.fromPath((ontFastqFolder + "/*.fastq.gz")
+            ontFastqs.merge(fastqFolderChannel)
+        }
         MAP_ONT_FASTQ(ontFastqs)
 
         // Merge

@@ -36,8 +36,16 @@ hiFiBams:
 #  - "/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs1-2_downsampled.bam"
 #  - "/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs2-2_downsampled.bam"
 
-# ONT Fastqs Folder(for ONT)
-ontFastqsFolder: "<full path to a folder that contains the fastqs>"  # e.g.  ontFastqsFolder: /net/nwgc/vol1/home/kolart/nextflow_ont_test/fastqs
+# ONT Fastq Folders(for ONT)
+ontFastqFolders:
+ -  "<full path to first folder that contains the fastqs>"
+ -  "<full path to second folder that contains the fastqs>"
+ -  "<repeat for more folders>"
+ 
+# e.g.
+#ontFastqFolders: 
+#  - "/net/nwgc/vol1/home/kolart/nextflow_ont_test/fastqs_1"
+#  - "/net/nwgc/vol1/home/kolart/nextflow_ont_test/fastqs_2"
 
 # mergedBam (for running qc on an already existing merged bam)
 mergedBam: "<full path to a merged bam that contains nm tags>"  # e.g.  mergedBam: /net/nwgc/vol1/home/kolart/pacbio_merged_test.bam   
