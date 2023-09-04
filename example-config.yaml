@@ -41,11 +41,20 @@ ontFastqFolders:
  -  "<full path to first folder that contains the fastqs>"
  -  "<full path to second folder that contains the fastqs>"
  -  "<repeat for more folders>"
- 
 # e.g.
 #ontFastqFolders: 
 #  - "/net/nwgc/vol1/home/kolart/nextflow_ont_test/fastqs_1"
 #  - "/net/nwgc/vol1/home/kolart/nextflow_ont_test/fastqs_2"
+
+# ONT Fastq Folders(for ONT)
+ontBamFolders:
+ -  "<full path to first folder that contains the bams>"
+ -  "<full path to second folder that contains the bamss>"
+ -  "<repeat for more folders>"
+# e.g.
+#ontBamFolders: 
+#  - "/net/nwgc/vol1/home/kolart/nextflow_ont_test/bams_1"
+#  - "/net/nwgc/vol1/home/kolart/nextflow_ont_test/bams_2"
 
 # mergedBam (for running qc on an already existing merged bam)
 mergedBam: "<full path to a merged bam that contains nm tags>"  # e.g.  mergedBam: /net/nwgc/vol1/home/kolart/pacbio_merged_test.bam   
