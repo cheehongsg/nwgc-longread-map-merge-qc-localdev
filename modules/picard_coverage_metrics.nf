@@ -2,6 +2,8 @@ process PICARD_COVERAGE_METRICS {
 
     label "PICARD_COVERAGE_METRICS_${params.sampleId}_${params.userId}"
 
+    Boolean isOnt = params.sequencingPlatform.equalsIgnoreCase("ont")
+
     publishDir "$params.sampleQCDirectory", mode: 'link', pattern: '*.picard.coverage.txt'
  
     input:
@@ -13,6 +15,9 @@ process PICARD_COVERAGE_METRICS {
         path "versions.yaml", emit: versions
 
     script:
+
+        def minimumBaseQuality = params.sequencingPlatform.equalsIgnoreCase("ont") ? '10' : '20'
+
         """
         mkdir -p $params.sampleQCDirectory
 
@@ -26,6 +31,7 @@ process PICARD_COVERAGE_METRICS {
             --INCLUDE_BQ_HISTOGRAM \
             --REFERENCE_SEQUENCE $params.referenceGenome \
             --VALIDATION_STRINGENCY LENIENT \
+            --MINIMUM_BASE_QUALITY $minimumBaseQuality \
             --OUTPUT ${params.sampleId}.picard.coverage.txt
 
         cat <<-END_VERSIONS > versions.yaml
