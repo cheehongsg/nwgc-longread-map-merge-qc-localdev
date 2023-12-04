@@ -1,10 +1,11 @@
 include { PACBIO_MAP_MERGE } from './workflows/pacbio-map-merge.nf'
+include { ONT_BASECALL_SIGNALS } from './workflows/ont-basecall-signals.nf'
 include { ONT_MAP_MERGE_FASTQS } from './workflows/ont-map-merge-fastqs.nf'
 include { ONT_MAP_MERGE_BAMS } from './workflows/ont-map-merge-bams.nf'
 include { LONGREAD_QC } from './workflows/qc.nf'
 
 workflow {
-    NwgcCore.init(params)
+    //NwgcCore.init(params)
 
     // Map-Merge
     if (params.mergedBam == null) {
@@ -13,13 +14,22 @@ workflow {
             LONGREAD_QC(PACBIO_MAP_MERGE.out.bam, PACBIO_MAP_MERGE.out.bai)
         }
         else if (params.sequencingPlatform.equalsIgnoreCase("ONT")) {
-            if (params.ontFastqFolders !=  null) {
-                ONT_MAP_MERGE_FASTQS()
-                LONGREAD_QC(ONT_MAP_MERGE_FASTQS.out.bam, ONT_MAP_MERGE_FASTQS.out.bai)
-            }
-            else {
-                ONT_MAP_MERGE_BAMS()
-                LONGREAD_QC(ONT_MAP_MERGE_BAMS.out.bam, ONT_MAP_MERGE_BAMS.out.bai)
+            if (params.ontBaseCall != null && params.ontBaseCall) {
+                // TODO
+                // ONT_BASECALL_SIGNALS(params.ontSignalFolders, params.ontBaseCallModel, params.ontBaseCallBaseModifications, params.ontBaseCallOutputDirectory)
+                ONT_BASECALL_SIGNALS()
+                // TODO: make ont routine callable
+                // ONT_MAP_MERGE_BAMS()
+                LONGREAD_QC(ONT_BASECALL_SIGNALS.out.bam, ONT_BASECALL_SIGNALS.out.bai)
+            } else {
+                if (params.ontFastqFolders !=  null) {
+                    ONT_MAP_MERGE_FASTQS()
+                    LONGREAD_QC(ONT_MAP_MERGE_FASTQS.out.bam, ONT_MAP_MERGE_FASTQS.out.bai)
+                }
+                else {
+                    ONT_MAP_MERGE_BAMS()
+                    LONGREAD_QC(ONT_MAP_MERGE_BAMS.out.bam, ONT_MAP_MERGE_BAMS.out.bai)
+                }
             }
         }
         else {
@@ -32,9 +42,9 @@ workflow {
 }
 
 workflow.onError {
-    NwgcCore.error(workflow, "$params.sampleId")
+    //NwgcCore.error(workflow, "$params.sampleId")
 }
 
 workflow.onComplete {
-    NwgcCore.processComplete(workflow, "$params.sampleId")
+    //NwgcCore.processComplete(workflow, "$params.sampleId")
 }

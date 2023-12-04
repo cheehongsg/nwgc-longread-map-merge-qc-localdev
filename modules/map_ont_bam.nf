@@ -13,21 +13,23 @@ process MAP_ONT_BAM {
         """
         samtools \\
             fastq \\
-            -T MM,ML \\
+            -T '*' \\
+            -@ 3 \\
             $bam \\
         | \\
         minimap2 \\
             -a \\
             -x map-ont \\
+            -t ${task.cpus} \\
             --MD \\
-            $params.referenceGenome \\
             -y \\
+            $params.referenceGenome \\
             - \\
         | \\
         samtools \\
-            view \\
-            -b \\
+            sort \\
             - \\
+            -@ 3 -m 1G \\
             -o ${bam}.mapped.bam
 
         cat <<-END_VERSIONS > versions.yaml
