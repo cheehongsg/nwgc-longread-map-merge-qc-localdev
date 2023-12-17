@@ -3,15 +3,17 @@ process MERGE_MAPPED_BAMS {
 
     label "MERGE_MAPPED_BAMS_${params.sampleId}_${params.userId}"
 
-    publishDir "$params.sampleDirectory", mode:  'link', pattern: "*.merged.sorted.bam", saveAs: {s-> "${params.sampleId}.${params.sequencingTarget}.bam"}
-    publishDir "$params.sampleDirectory", mode:  'link', pattern: "*.merged.sorted.bam.bai", saveAs: {s-> "${params.sampleId}.${params.sequencingTarget}.bam.bai"}
+    publishDir "${mergedPath}", mode:  'link', pattern: "${saveAsPrefix}.bam"
+    publishDir "${mergedPath}", mode:  'link', pattern: "${saveAsPrefix}.bam.bai"
 
     input:
         path bamList
+        val(mergedPath)
+        val(saveAsPrefix)
 
     output:
-        path "*.merged.sorted.bam",  emit: merged_sorted_bam
-        path "*.merged.sorted.bam.bai",  emit: bai
+        path "${saveAsPrefix}.bam",  emit: merged_sorted_bam
+        path "${saveAsPrefix}.bam.bai",  emit: bai
         path "versions.yaml", emit: versions
 
     script:
@@ -21,12 +23,12 @@ process MERGE_MAPPED_BAMS {
             merge \
             --threads $task.cpus \
             $bamList \
-            -o ${params.sampleId}.merged.sorted.bam
+            -o ${saveAsPrefix}.bam
 
         samtools \
             index \
             -@ $task.cpus \
-            ${params.sampleId}.merged.sorted.bam
+            ${saveAsPrefix}.bam
 
         cat <<-END_VERSIONS > versions.yaml
         '${task.process}':

@@ -2,10 +2,11 @@ process CHECKSUM_BAM {
 
     label "CHECKSUM_BAM_${params.sampleId}_${params.userId}"
 
-    publishDir "$params.sampleDirectory", mode:  'link', pattern: "${inputBam}.md5sum"
+    publishDir "${checksumPath}", mode:  'link', pattern: "${inputBam}.md5sum"
  
     input:
         path inputBam
+        val(checksumPath)
 
     output:
         path "${inputBam}", emit: bam

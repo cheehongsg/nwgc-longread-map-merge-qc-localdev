@@ -21,11 +21,13 @@ workflow PACBIO_MAP_MERGE {
         // NM TAGS
         ADD_NM_TAGS(MAP_HIFI_BAM.out.mapped_bam)
 
+        def outFolder = "${params.sampleDirectory}"
+        def outPrefix = "${params.sampleId}.${params.sequencingTarget}"
         // Merge
-        MERGE_MAPPED_BAMS(ADD_NM_TAGS.out.nm_bam.collect())
+        MERGE_MAPPED_BAMS(ADD_NM_TAGS.out.nm_bam.collect(), outFolder, outPrefix)
 
         // checksum
-        CHECKSUM_BAM(MERGE_MAPPED_BAMS.out.merged_sorted_bam)
+        CHECKSUM_BAM(MERGE_MAPPED_BAMS.out.merged_sorted_bam, outFolder)
 
         // Versions
         ch_versions = Channel.empty()

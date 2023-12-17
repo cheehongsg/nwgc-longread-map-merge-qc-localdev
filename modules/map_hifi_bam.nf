@@ -13,8 +13,6 @@ process MAP_HIFI_BAM {
         def numCPUs = Integer.valueOf("$task.cpus")
         def align_threads = numCPUs
         def sort_threads = Math.min(8, Math.ceil(numCPUs/4).intValue())
-        log.info("MAP_HIFI_BAM cpus = ${task.cpus}")
-        log.info("MAP_HIFI_BAM memory = ${task.memory}")
 
         """
         pbmm2 \\

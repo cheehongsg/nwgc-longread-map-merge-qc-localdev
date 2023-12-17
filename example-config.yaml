@@ -36,14 +36,27 @@ hiFiBams:
 #  - "/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs1-2_downsampled.bam"
 #  - "/net/nwgc/vol1/home/kolart/nextflow_pb_test/ccs2-2_downsampled.bam"
 
+ontReleaseData: <boolean to release data> # e.g. ontReleaseData: true
+# perform QC on the SUP data and release after sequencing complete == true
+# e.g. ontReleaseData: false
+# non-release operations; i.e. perform QC on the HAC data
+
+ontSetupBasecall: <boolean to basecall setup>
+# e.g. ontSetupBasecall: true
+# to perform the setup only but not further QC steps
+# e.g. ontSetupBasecall: false
+# do not perform the setup, but perform the HAC QC steps only
+# e.g. not defining the parameter
+# perform both the setup and also the HAC QC steps
+
 # ONT Fast5/Pod5Folders (for ONT)
+ontDataFolder: "<full path to the directory for ont data output>" # e.g. ontDataFolder: "/net/nwgc/vol1/home/kolart/nextflow_ont_test/ont"
 ontBaseCall: <boolean to perform base call> # e.g. ontBaseCall: true
                                             # e.g. ontBaseCall: false
 ontBaseCallModel: "<dorado model>" # e.g. ontBaseCallModel: "dna_r10.4.1_e8.2_400bps_sup@v3.5.2"
                                    # e.g. ontBaseCallModel: "dna_r9.4.1_e8_sup@v3.3"
 ontBaseCallBaseModifications: "<dorado base modifications>" # e.g. ontBaseCallBaseModifications: "5mCG"
-ontBaseCallOutputDirectory: "<full path to the directory for base call output>" # e.g. ontBaseCallOutputDirectory: "/net/nwgc/vol1/home/kolart/nextflow_ont_test/pod5_sup"
-                                                                          # TODO: better to set this to be the instrument folder
+ontBaseCallOutFolder: "<full path to the directory for ont basecall output>" # e.g. ontDataFolder: "/net/nwgc/vol1/home/kolart/nextflow_ont_test/pod5_sup"
 
 # ONT Fast5/Pod5Folders (for ONT)
 # does not check for inconsistency
@@ -61,11 +74,11 @@ ontSignalFolders:
 #  - "/net/nwgc/vol1/home/kolart/nextflow_ont_test/pod5s_2"
 
 
-# ONT Fastq Folders(for ONT)
-ontFastqFolders:
- -  "<full path to first folder that contains the fastqs>"
- -  "<full path to second folder that contains the fastqs>"
- -  "<repeat for more folders>"
+# ONT Fastq Folders(for ONT) / obsoleted
+#ontFastqFolders:
+# -  "<full path to first folder that contains the fastqs>"
+# -  "<full path to second folder that contains the fastqs>"
+# -  "<repeat for more folders>"
 # e.g.
 #ontFastqFolders: 
 #  - "/net/nwgc/vol1/home/kolart/nextflow_ont_test/fastqs_1"

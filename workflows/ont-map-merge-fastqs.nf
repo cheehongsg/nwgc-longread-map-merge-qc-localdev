@@ -12,11 +12,13 @@ workflow ONT_MAP_MERGE_FASTQS {
         }
         MAP_ONT_FASTQ(ontFastqs)
 
+        def outFolder = "${params.sampleDirectory}"
+        def outPrefix = "${params.sampleId}.${params.sequencingTarget}"
         // Merge
-        MERGE_MAPPED_BAMS(MAP_ONT_FASTQ.out.mapped_bam.collect())
+        MERGE_MAPPED_BAMS(MAP_ONT_FASTQ.out.mapped_bam.collect(), outFolder, outPrefix)
 
         // checksum
-        CHECKSUM_BAM(MERGE_MAPPED_BAMS.out.merged_sorted_bam)
+        CHECKSUM_BAM(MERGE_MAPPED_BAMS.out.merged_sorted_bam, outFolder)
 
         // Versions
         ch_versions = Channel.empty()
