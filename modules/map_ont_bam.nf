@@ -17,12 +17,15 @@ process MAP_ONT_BAM {
             -@ 3 \\
             $bam \\
         | \\
+        perl -ne 'if (/^@/) { chomp(); @c=grep { !/^RG:Z:/} split(/\\t/); print join("\\t",@c),"\\n"; } else { print \$_; }' \\
+        | \\
         minimap2 \\
             -a \\
             -x map-ont \\
             -t ${task.cpus} \\
             --MD \\
             -y \\
+            -R "\$(samtools view -H $bam | grep ^@RG | sed 's/\\t/\\\\t/g')" \\
             $params.referenceGenome \\
             - \\
         | \\

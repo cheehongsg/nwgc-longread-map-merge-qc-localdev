@@ -22,6 +22,7 @@ process MERGE_MAPPED_BAMS {
         samtools \
             merge \
             --threads $task.cpus \
+            -c \
             $bamList \
             -o ${saveAsPrefix}.bam
 
