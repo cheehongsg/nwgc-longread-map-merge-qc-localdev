@@ -3,7 +3,8 @@ include { MERGE_MAPPED_BAMS } from '../modules/merge_mapped_bams.nf'
 include { CHECKSUM_BAM } from '../modules/checksum_bam.nf'
 
 workflow ONT_MAP_MERGE_BAMS {
-
+    take:
+        arguments
     main:
         ontBams = Channel.empty()
         for (ontBamFolder in params.ontBamFolders) {
@@ -12,8 +13,11 @@ workflow ONT_MAP_MERGE_BAMS {
         }
         MAP_ONT_BAM(ontBams)
 
-        def outFolder = "${params.sampleDirectory}"
-        def outPrefix = "${params.sampleId}.${params.sequencingTarget}"
+        ////def outFolder = "${params.sampleDirectory}"
+        ////def outPrefix = "${params.sampleId}.${params.sequencingTarget}"
+        def outFolder = "${arguments['outFolder']}"
+        def outPrefix = "${arguments['outPrefix']}"
+
         // Merge
         MERGE_MAPPED_BAMS(MAP_ONT_BAM.out.mapped_bam.collect(), outFolder, outPrefix)
 

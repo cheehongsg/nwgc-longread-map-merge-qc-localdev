@@ -23,6 +23,8 @@ workflow LONGREAD_QC {
         def ch_qcouts = Channel.empty()
         def ch_nanoplotqcouts = Channel.empty()
 
+        log.info("LONGREAD_QC: qcFolder = ${qcFolder}")
+
         if (runAll || qcToRun.contains("samtools_stats")) {
             SAMTOOLS_STATS(bam, bai, qcFolder)
             ch_versions = ch_versions.mix(SAMTOOLS_STATS.out.versions)

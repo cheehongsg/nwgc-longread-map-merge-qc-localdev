@@ -9,7 +9,7 @@ process NANO_PLOT {
     input:
         path bam
         path bai
-        path qcFolder
+        val(qcFolder)
 
     output:
         path "nanoPlot/*.html", emit: html

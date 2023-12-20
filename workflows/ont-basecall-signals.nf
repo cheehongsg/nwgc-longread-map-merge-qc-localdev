@@ -269,6 +269,10 @@ workflow ONT_SETUP_BASECALL_ENVIRONMENT {
         NwgcONTCore.setWorkflowMetadata(workflow)
         ontDataFolder = NwgcONTCore.getONTDataFolder(params)
         outPrefix = NwgcONTCore.getReleaseSupPrefix(params)
+        ontSubmitBaseCallJob = true
+        if (params.containsKey('ontSubmitBaseCallJob')) {
+            ontSubmitBaseCallJob = params.ontSubmitBaseCallJob
+        }
         def ontRunAcqs = Channel
             .fromList(params.ontBamFolders)
             .map{runAcqBam -> 
@@ -279,7 +283,7 @@ workflow ONT_SETUP_BASECALL_ENVIRONMENT {
                 by: [0]
             )
             .map{runAcqFolder, runAcqBams -> 
-                NwgcONTCore.setupRunAcquisition(runAcqFolder, runAcqBams, params.sampleId, ontDataFolder)
+                NwgcONTCore.setupRunAcquisition(runAcqFolder, runAcqBams, params.sampleId, ontDataFolder, ontSubmitBaseCallJob)
             }
 
         /*
@@ -305,14 +309,14 @@ workflow ONT_SETUP_BASECALL_ENVIRONMENT {
             }
 }
 
-// TODO: check
+// DONE
 process PUBLISH_RELEASE {
     publishDir "${pubdir}", mode: 'copy'
     input:
         file bam
         file bai
         file md5sum
-        path pubdir
+        val pubdir
     output:
         file bam
         file bai
@@ -326,7 +330,7 @@ process PUBLISH_RELEASE {
     """
 }
 
-// TODO: copy directory instead
+// DONE
 process PUBLISH_RELEASE_QC {
     publishDir "${outdir}", mode: 'copy'
     input:
@@ -341,11 +345,12 @@ process PUBLISH_RELEASE_QC {
     """
 }
 
+// DONE
 workflow ONT_RELEASE_BAMS {
     main:
         NwgcONTCore.setLog(log)
         NwgcONTCore.setWorkflowMetadata(workflow)
-        // TODO: rehash the release bam files from SUP specific directories
+        // rehash the release bam files from SUP specific directories
         ontDataFolder = NwgcONTCore.getONTDataFolder(params)
         outFolder = NwgcONTCore.getReleaseSupFolder(ontDataFolder)
         outPrefix = NwgcONTCore.getReleaseSupPrefix(params)

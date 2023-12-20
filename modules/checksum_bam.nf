@@ -3,7 +3,7 @@ process CHECKSUM_BAM {
     label "CHECKSUM_BAM_${params.sampleId}_${params.userId}"
 
     publishDir "${checksumPath}", mode:  'link', pattern: "${inputBam}.md5sum"
- 
+
     input:
         path inputBam
         val(checksumPath)

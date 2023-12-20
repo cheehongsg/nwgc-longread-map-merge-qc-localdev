@@ -4,12 +4,12 @@ process PICARD_COVERAGE_METRICS {
 
     Boolean isOnt = params.sequencingPlatform.equalsIgnoreCase("ont")
 
-    publishDir "$qcFolder", mode: 'link', pattern: '*.picard.coverage.txt'
+    publishDir "${qcFolder}", mode: 'link', pattern: '*.picard.coverage.txt'
  
     input:
         path bam
         path bai
-        path qcFolder
+        val(qcFolder)
 
     output:
         path "*.picard.coverage.txt", emit: stats

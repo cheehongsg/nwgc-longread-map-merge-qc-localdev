@@ -2,12 +2,12 @@ process SAMTOOLS_STATS {
 
     label "SAMTOOLS_STATS_${params.sampleId}_${params.userId}"
 
-    publishDir "$qcFolder", mode: 'link', pattern: '*.stats.txt'
+    publishDir "${qcFolder}", mode: 'link', pattern: '*.stats.txt'
 
     input:
         path bam
         path bai
-        path qcFolder
+        val(qcFolder)
 
     output:
         path "*.stats.txt", emit: stats

@@ -2,12 +2,12 @@ process CONTAMINATION_CHECK {
 
     label "CONTAMINATION_CHECK_${params.sampleId}_${params.userId}"
 
-    publishDir "$qcFolder", mode: 'link', pattern: '*.VerifyBamID.selfSM'
+    publishDir "${qcFolder}", mode: 'link', pattern: '*.VerifyBamID.selfSM'
 
     input:
         path bam
         path bai
-        path qcFolder
+        val(qcFolder)
 
     output:
         path "*.VerifyBamID.selfSM", emit: verifications

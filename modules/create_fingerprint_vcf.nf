@@ -2,13 +2,13 @@ process CREATE_FINGERPRINT_VCF {
 
     label "CREATE_FINGERPRINT_VCF_${params.sampleId}_${params.userId}"
 
-    publishDir "$qcFolder", mode: 'link', pattern: '*.fingerprint.vcf.gz'
-    publishDir "$qcFolder", mode: 'link', pattern: '*.fingerprint.vcf.gz.tbi'
+    publishDir "${qcFolder}", mode: 'link', pattern: '*.fingerprint.vcf.gz'
+    publishDir "${qcFolder}", mode: 'link', pattern: '*.fingerprint.vcf.gz.tbi'
  
     input:
         path bam
         path bai
-        path qcFolder
+        val(qcFolder)
 
     output:
         path "*.fingerprint.vcf.gz", emit: vcfs
