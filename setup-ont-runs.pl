@@ -5,12 +5,13 @@ use Storable qw(dclone freeze thaw);
 use Data::Dumper;
 
 my $G_USAGE = "
-$0 --ids <ids> [--pipeline <nextflow_pipeline_to_use>] [--userid <user_id>] [--useremail <email_address>]
+$0 --ids <ids> [--pipeline <nextflow_pipeline_to_use>] [--userid <user_id>] [--useremail <email_address>] [--pipeoutsub <pipeline_output_subfolder>]
 
---ids INTs       Sample LIMS id (separator , and range supported via ..)
---pipeline STR   nextflow pipeline to use in script
---userid STR     user id to use in job name
---useremail STR  email to set notification
+--ids INTs        Sample LIMS id (separator , and range supported via ..)
+--pipeline STR    nextflow pipeline to use in script
+--userid STR      user id to use in job name
+--useremail STR   email to set notification
+--pipeoutsub STR  nextflow pipeline output subfolder (e.g. longread-map-merge-qc)
 ";
 
 my $G_PROCESSED_SAMPLE_DIR = '/net/nwgc/vol1/data/processed/samples';
@@ -31,17 +32,23 @@ my $ids = '';
 my $pipeline = '';
 my $userid = '';
 my $useremail = '';
+my $pipeoutsub = '';
 
 GetOptions (
 "ids=s"       => \$ids,
 "pipeline=s"  => \$pipeline,
 "userid=s"    => \$userid,
 "useremail=s" => \$useremail,
+"pipeoutsub=s" => \$pipeoutsub,
 "help!"       => \$help)
 or die("Error in command line arguments\n$G_USAGE");
 
 die "$G_USAGE" if ($help);
-	
+
+if ('' ne $pipeoutsub) {
+    $G_PIPELINE_SUBFOLDER = $pipeoutsub;
+}
+
 my @sampleIds = ();
 if (my($number) = ($ids =~ /^(\d+)$/)) {
     push(@sampleIds, $number);
