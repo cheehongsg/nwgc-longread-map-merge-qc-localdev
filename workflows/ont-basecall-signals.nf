@@ -120,6 +120,7 @@ process QSFILTER {
     """
 }
 
+// DONE
 workflow ONT_BASECALL {
     main:
         def finalMergedPath = "${params.ontBaseCallOutFolder}/mapped_pass_sup"
@@ -129,8 +130,8 @@ workflow ONT_BASECALL {
         File finalMergedFileBai = new File("${finalMergedPath}/${finalMergedFilePrefix}.bam.bai")
         File finalMergedFileMD5 = new File("${finalMergedPath}/${finalMergedFilePrefix}.bam.md5sum")
         ////FIXME: by pass checking
-        ////if (finalMergedFileBam.exists() && finalMergedFileBai.exists() && finalMergedFileMD5.exists()) {
-        if (finalMergedFileBam.exists() && finalMergedFileBai.exists() && finalMergedFileMD5.exists() && false) {
+        if (finalMergedFileBam.exists() && finalMergedFileBai.exists() && finalMergedFileMD5.exists()) {
+        ////if (finalMergedFileBam.exists() && finalMergedFileBai.exists() && finalMergedFileMD5.exists() && false) {
             log.info("Skipping re-basecalling for ${params.ontBaseCallOutFolder}")
             log.info("${finalMergedFileMD5.toString()} already exists")
             log.info("Assuming that ${finalMergedFileBam.toString()} is current and intact")
@@ -195,7 +196,7 @@ workflow ONT_BASECALL {
                     log.warn("Specified basecaller model ${basecaller_model} not found.")
                     basecaller_model = "\${MODELS_ROOT}/${basecaller_model.name}"
                     log.warn("Override to ${basecaller_model}")
-                    // FIXME: informative but require module loading
+                    // FIXME: informative but delay as it requires module loading
                     // log.warn("\${MODELS_ROOT} = ${MODELS_ROOT}")
                 } else {
                     log.info("Using specified basecaller model ${basecaller_model}")
@@ -263,6 +264,7 @@ workflow ONT_BASECALL {
         bam_md5sum = CHECKSUM_BAM.out.md5sum
 }
 
+// DONE
 workflow ONT_SETUP_BASECALL_ENVIRONMENT {
     main:
         NwgcONTCore.setLog(log)
@@ -311,6 +313,8 @@ workflow ONT_SETUP_BASECALL_ENVIRONMENT {
 
 // DONE
 process PUBLISH_RELEASE {
+    label "PUBLISH_RELEASE_${params.sampleId}_${params.userId}"
+
     publishDir "${pubdir}", mode: 'copy'
     input:
         file bam
@@ -332,6 +336,8 @@ process PUBLISH_RELEASE {
 
 // DONE
 process PUBLISH_RELEASE_QC {
+    label "PUBLISH_RELEASE_QC_${params.sampleId}_${params.userId}"
+
     publishDir "${outdir}", mode: 'copy'
     input:
         path qcouts
@@ -345,8 +351,17 @@ process PUBLISH_RELEASE_QC {
     """
 }
 
+
+workflow ONT_BACKUP_LIVEMODEL {
+    main:
+        NwgcONTCore.setLog(log)
+        NwgcONTCore.setWorkflowMetadata(workflow)
+        NwgcONTCore.handleLiveModelBackup(params)
+        // TODO: latch the next step?!
+}
+
 // DONE
-workflow ONT_RELEASE_BAMS {
+workflow ONT_MERGE_QC_SUP_BAMS {
     main:
         NwgcONTCore.setLog(log)
         NwgcONTCore.setWorkflowMetadata(workflow)
@@ -408,7 +423,7 @@ workflow ONT_RELEASE_BAMS {
         // ch_versions = ch_versions.mix(MAP_ONT_BAM.out.versions)
         ch_versions = ch_versions.mix(MERGE_MAPPED_BAMS.out.versions)
         ch_versions = ch_versions.mix(CHECKSUM_BAM.out.versions)
-        ch_versions.unique().collectFile(name: 'release_merge_software_versions.yaml', storeDir: "${params.sampleDirectory}")
+        ch_versions.unique().collectFile(name: 'merge_sup_software_versions.yaml', storeDir: "${params.sampleDirectory}")
 
     emit:
         bam = MERGE_MAPPED_BAMS.out.merged_sorted_bam

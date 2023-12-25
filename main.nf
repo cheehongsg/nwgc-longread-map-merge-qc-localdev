@@ -2,7 +2,8 @@ include { PACBIO_MAP_MERGE } from './workflows/pacbio-map-merge.nf'
 include {
     ONT_BASECALL ;
     ONT_SETUP_BASECALL_ENVIRONMENT ;
-    ONT_RELEASE_BAMS ;
+    ONT_MERGE_QC_SUP_BAMS ;
+    ONT_BACKUP_LIVEMODEL ;
     PUBLISH_RELEASE ;
     PUBLISH_RELEASE_QC as PUBLISH_RELEASE_QC_ROOT;
     PUBLISH_RELEASE_QC as PUBLISH_RELEASE_QC_NANAPLOT;
@@ -24,20 +25,23 @@ workflow {
         else if (params.sequencingPlatform.equalsIgnoreCase("ONT")) {
             if (params.containsKey('ontReleaseData') && params.ontReleaseData) {
                 // --ontReleaseData true
-                ONT_RELEASE_BAMS()
+                ONT_BACKUP_LIVEMODEL()
+                ONT_MERGE_QC_SUP_BAMS()
                 PUBLISH_RELEASE(
-                    ONT_RELEASE_BAMS.out.bam, ONT_RELEASE_BAMS.out.bai, 
-                    ONT_RELEASE_BAMS.out.bam_md5sum, 
+                    ONT_MERGE_QC_SUP_BAMS.out.bam, ONT_MERGE_QC_SUP_BAMS.out.bai, 
+                    ONT_MERGE_QC_SUP_BAMS.out.bam_md5sum, 
                     params.sampleDirectory)
 
                 // where to write qc
                 ontDataFolder = NwgcONTCore.getONTDataFolder(params)
                 releaseLiveModelQCFolder = NwgcONTCore.getReleaseSupQCFolder(ontDataFolder)
                 log.info("ontReleaseData: releaseLiveModelQCFolder = ${releaseLiveModelQCFolder}")
-                ////FIXME: commented out for speed testing
-                // def fundamentalQCs = params.qcToRun
-                def fundamentalQCs = ['samtools_stats','quality','nanoplot','fingerprint']
-                LONGREAD_QC(ONT_RELEASE_BAMS.out.bam, ONT_RELEASE_BAMS.out.bai, 
+
+                log.info("ontReleaseData: params.qcToRun = ${params.qcToRun}")
+                def fundamentalQCs = params.qcToRun
+                //// FIXME: commented out for speed testing
+                //// def fundamentalQCs = ['samtools_stats','quality','nanoplot','fingerprint']
+                LONGREAD_QC(ONT_MERGE_QC_SUP_BAMS.out.bam, ONT_MERGE_QC_SUP_BAMS.out.bai, 
                     params.sampleDirectory, releaseLiveModelQCFolder, fundamentalQCs)
                 PUBLISH_RELEASE_QC_ROOT(LONGREAD_QC.out.qcouts.flatten(), params.sampleQCDirectory)
                 PUBLISH_RELEASE_QC_NANAPLOT(LONGREAD_QC.out.nanoplotqcouts.flatten(), "${params.sampleQCDirectory}/nanoPlot")
@@ -78,12 +82,13 @@ workflow {
                             ONT_MAP_MERGE_BAMS.out.bam, ONT_MAP_MERGE_BAMS.out.bai, 
                             ONT_MAP_MERGE_BAMS.out.bam_md5sum, 
                             params.sampleDirectory)
-                        // FIXME: handle the directory
+
                         releaseLiveModelQCFolder = NwgcONTCore.getReleaseLiveModelQCFolder(ontDataFolder)
                         log.info("releaseLiveModelQCFolder = ${releaseLiveModelQCFolder}")
-                        ////FIXME: commented out for speed testing
-                        // def fundamentalQCs = params.qcToRun
-                        def fundamentalQCs = ['samtools_stats','quality','nanoplot','fingerprint']
+
+                        def fundamentalQCs = params.qcToRun
+                        //// FIXME: commented out for speed testing
+                        //// def fundamentalQCs = ['samtools_stats','quality','nanoplot','fingerprint']
                         LONGREAD_QC(ONT_MAP_MERGE_BAMS.out.bam, ONT_MAP_MERGE_BAMS.out.bai, 
                             releaseLiveModelFolder, releaseLiveModelQCFolder, fundamentalQCs)
                         PUBLISH_RELEASE_QC_ROOT(LONGREAD_QC.out.qcouts.flatten(), params.sampleQCDirectory)
@@ -107,12 +112,13 @@ workflow {
                         ONT_MAP_MERGE_BAMS.out.bam, ONT_MAP_MERGE_BAMS.out.bai, 
                         ONT_MAP_MERGE_BAMS.out.bam_md5sum, 
                         params.sampleDirectory)
-                    // FIXME: handle the directory
+
                     releaseLiveModelQCFolder = NwgcONTCore.getReleaseLiveModelQCFolder(ontDataFolder)
                     log.info("releaseLiveModelQCFolder = ${releaseLiveModelQCFolder}")
+
+                    def fundamentalQCs = params.qcToRun
                     ////FIXME: commented out for speed testing
-                    // def fundamentalQCs = params.qcToRun
-                    def fundamentalQCs = ['samtools_stats','quality','nanoplot','fingerprint']
+                    //// def fundamentalQCs = ['samtools_stats','quality','nanoplot','fingerprint']
                     LONGREAD_QC(ONT_MAP_MERGE_BAMS.out.bam, ONT_MAP_MERGE_BAMS.out.bai, 
                         releaseLiveModelFolder, releaseLiveModelQCFolder, fundamentalQCs)
                     PUBLISH_RELEASE_QC_ROOT(LONGREAD_QC.out.qcouts.flatten(), params.sampleQCDirectory)
